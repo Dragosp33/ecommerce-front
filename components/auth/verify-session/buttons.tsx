@@ -1,19 +1,21 @@
 'use client';
 
-import { SwitchAccounts } from '@/actions/logout';
+import { logout, SwitchAccounts } from '@/actions/logout';
+
 import { Button } from '@/components/ui/button';
 import { EnterIcon } from '@radix-ui/react-icons';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 export const SwitchButton = ({ full }: { full?: boolean }) => {
+  const onClick = async () => {
+    await logout();
+  };
   return (
     <Button
       variant='outline'
       className={full ? 'flex-1' : ''}
-      onClick={async () => {
-        await SwitchAccounts();
-      }}
+      onClick={onClick}
     >
       <EnterIcon className='w-4 h-4 mr-2 rotate-180' />
       Switch{' '}
