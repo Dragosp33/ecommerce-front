@@ -6,8 +6,8 @@ export async function GET(request: NextRequest) {
   const cookies = request.cookies.getAll();
   console.log('cookies sent: ', cookies);
   const response = NextResponse.redirect(
-    `${process.env.ADMIN_DOMAIN_URL}/dashboard` ||
-      'http://localhost:3001/dashboard',
+    `${process.env.ADMIN_DOMAIN_URL}/verified-session` ||
+      'http://localhost:3001/verified-session',
     {
       status: 302,
     }
