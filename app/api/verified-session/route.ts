@@ -5,13 +5,26 @@ export async function GET(request: NextRequest) {
   //const cookies = request.headers.get('cookie');
   const cookies = request.cookies.getAll();
   console.log('cookies sent: ', cookies);
-  const response = NextResponse.redirect(
+  /*const response = NextResponse.redirect(
     `${process.env.ADMIN_DOMAIN_URL}/verified-session` ||
       'http://localhost:3001/verified-session',
     {
       status: 302,
     }
+  );*/
+  const res = await fetch(
+    `${process.env.ADMIN_DOMAIN_URL}/verified-session` ||
+      'http://localhost:3001/verified-session',
+    {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        cookies: cookies.toString(),
+      },
+    }
   );
+
+  const response = NextResponse.json({ message: 'OK!' });
   // Set a cookie
   response.cookies.set('myCookie', 'cookieValue', {
     httpOnly: true,
@@ -37,10 +50,10 @@ export async function GET(request: NextRequest) {
       
     }
   );*/
-  response.headers.set(
+  /* response.headers.set(
     'Location',
     process.env.ADMIN_DOMAIN_URL || 'http://localhost:3001'
-  );
+  );*/
   //response.
 
   //console.log(response);

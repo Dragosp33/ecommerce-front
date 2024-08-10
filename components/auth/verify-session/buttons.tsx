@@ -27,13 +27,11 @@ export const ContinueButton = () => {
   const callback = searchParams.get('callbackUrl');
 
   const continueToPortal = async () => {
-    /*const response = await fetch(
-      `${process.env.ADMIN_DOMAIN_URL}/api/verified-session`,
-      {
-        method: 'GET',
-        credentials: 'include',
-      }
-    );*/
+    const response = await fetch(`/api/verified-session`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    /*
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL || 'localhost:3001'
@@ -42,7 +40,7 @@ export const ContinueButton = () => {
         method: 'GET',
         credentials: 'include',
       }
-    );
+    );*/
     console.log(response);
     if (response.redirected) {
       window.location.href = response.url;
