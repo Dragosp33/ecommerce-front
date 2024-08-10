@@ -13,8 +13,8 @@ export async function GET(request: NextRequest) {
     }
   );*/
   const res = await fetch(
-    `${process.env.ADMIN_DOMAIN_URL}/verified-session` ||
-      'http://localhost:3001/verified-session',
+    `${process.env.ADMIN_DOMAIN_URL}/api/verified-session` ||
+      'http://localhost:3001/api/verified-session',
     {
       method: 'GET',
       credentials: 'include',
