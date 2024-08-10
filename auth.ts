@@ -120,11 +120,11 @@ export const {
           : `authjs.session-token`,
       options: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Ensure cookies are sent over HTTPS in production
+        secure: process.env.NODE_ENV === 'production' ? true : false, // Ensure cookies are sent over HTTPS in production
         //sameSite: 'none', // Allow cookies to be sent cross-site
         domain:
           process.env.NODE_ENV === 'production'
-            ? '.dragospolifronie.com'
+            ? 'dragospolifronie.com'
             : undefined, // Adjust as needed for your domain
       },
     },
