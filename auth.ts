@@ -114,7 +114,10 @@ export const {
   jwt: { maxAge: 60 * 60 * 24 },
   cookies: {
     sessionToken: {
-      name: `authjs.session-token`,
+      name:
+        process.env.NODE_ENV == 'production'
+          ? '__Secure-authjs.session-token'
+          : `authjs.session-token`,
       options: {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Ensure cookies are sent over HTTPS in production
