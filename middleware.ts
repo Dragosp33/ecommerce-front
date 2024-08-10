@@ -44,7 +44,10 @@ export default auth((req) => {
         callback?.startsWith(process.env.ADMIN_DOMAIN_URL)
       ) {
         return Response.redirect(
-          new URL(`/verify-session?callbackUrl=${callback}/dashboard`, nextUrl)
+          new URL(
+            `/verify-session?callbackUrl=${process.env.ADMIN_DOMAIN_URL}/dashboard`,
+            nextUrl
+          )
         );
       }
       console.log('REDIRECTED TO: ', DEFAULT_LOGIN_REDIRECT);

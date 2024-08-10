@@ -27,27 +27,25 @@ export const ContinueButton = () => {
   const callback = searchParams.get('callbackUrl');
 
   const continueToPortal = async () => {
-    const response = await fetch(`/api/verified-session`, {
-      method: 'GET',
-      credentials: 'include',
-    });
-    /*
     const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL || 'localhost:3001'
-      }/api/verified-session`,
+      `${process.env.ADMIN_DOMAIN_URL}/api/verified-session`,
       {
         method: 'GET',
         credentials: 'include',
       }
-    );*/
+    );
+
     console.log(response);
     if (response.redirected) {
       window.location.href = response.url;
     }
   };
   return (
-    <Button onClick={continueToPortal}>
+    <Button
+      onClick={() => {
+        router.push(callback || 'localhost:3001/dashboard');
+      }}
+    >
       Continue <EnterIcon className='w-4 h-4 ml-2' />
     </Button>
   );
