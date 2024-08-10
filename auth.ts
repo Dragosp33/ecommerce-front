@@ -121,7 +121,7 @@ export const {
       options: {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Ensure cookies are sent over HTTPS in production
-        sameSite: 'none', // Allow cookies to be sent cross-site
+        //sameSite: 'none', // Allow cookies to be sent cross-site
         //domain: '.example.com', // Adjust as needed for your domain
       },
     },

@@ -19,13 +19,18 @@ export default auth((req) => {
   console.log('route: ', nextUrl.pathname);
   const callback = nextUrl.searchParams.get('callbackUrl');
   // console.log('LOGGED: ', isLoggedIn);
-  const isApiRoute = nextUrl.pathname.startsWith(authApiPrefix);
-  //const isApiRoute = nextUrl.pathname.startsWith(apiPrefix);
+  const isApiAuthRoute = nextUrl.pathname.startsWith(authApiPrefix);
+  const isApiRoute = nextUrl.pathname.startsWith(apiPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  if (isApiRoute) {
+  if (isApiAuthRoute) {
     console.log('middleware is api auth route: ', nextUrl.pathname);
+    return;
+  }
+
+  if (isApiRoute) {
+    console.log('middleware is api route: ', nextUrl.pathname);
     return;
   }
 

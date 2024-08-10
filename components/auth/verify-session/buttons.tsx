@@ -25,12 +25,19 @@ export const ContinueButton = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callback = searchParams.get('callbackUrl');
+
+  const continueToPortal = async () => {
+    const response = await fetch('/api/verified-session', {
+      method: 'GET',
+      credentials: 'include',
+    });
+    console.log(response);
+    if (response.redirected) {
+      window.location.href = response.url;
+    }
+  };
   return (
-    <Button
-      onClick={() => {
-        router.push(callback || '/');
-      }}
-    >
+    <Button onClick={continueToPortal}>
       Continue <EnterIcon className='w-4 h-4 ml-2' />
     </Button>
   );
