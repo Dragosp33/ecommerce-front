@@ -124,7 +124,7 @@ export const {
         //sameSite: 'none', // Allow cookies to be sent cross-site
         domain:
           process.env.NODE_ENV === 'production'
-            ? 'shop.dragospolifronie.com'
+            ? '.shop.dragospolifronie.com'
             : undefined, // Adjust as needed for your domain
       },
     },
@@ -361,7 +361,7 @@ export const {
 
         if (appB) {
           // Redirect to App B
-          return 'http://localhost:3001';
+          return process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL || '/';
         }
 
         // Default redirect for App A
