@@ -124,7 +124,7 @@ export const {
         //sameSite: 'none', // Allow cookies to be sent cross-site
         domain:
           process.env.NODE_ENV === 'production'
-            ? 'dragospolifronie.com'
+            ? '.shop.dragospolifronie.com'
             : undefined, // Adjust as needed for your domain
       },
     },
