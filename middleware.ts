@@ -10,8 +10,13 @@ import {
 } from '@/routes';
 
 import authConfig from './auth.config';
+// todos:
+// move callbacks, sessions from '.auth.ts' to 'auth.config.ts'
+// auth.ts will include only types, jwt strategy and mongoDB adapter.
 
 const { auth } = NextAuth(authConfig);
+
+//import { auth } from './auth';
 
 export default auth((req) => {
   const isLoggedIn = !!req.auth;

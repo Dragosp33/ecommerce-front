@@ -110,25 +110,6 @@ export const {
   signOut,
 } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
-  session: { strategy: 'jwt', maxAge: 60 * 60 * 24 * 7 },
-  jwt: { maxAge: 60 * 60 * 24 },
-  cookies: {
-    sessionToken: {
-      name:
-        process.env.NODE_ENV == 'production'
-          ? '__Secure-authjs.session-token'
-          : `authjs.session-token`,
-      options: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' ? true : false, // Ensure cookies are sent over HTTPS in production
-        //sameSite: 'none', // Allow cookies to be sent cross-site
-        domain:
-          process.env.NODE_ENV === 'production'
-            ? '.shop.dragospolifronie.com'
-            : undefined, // Adjust as needed for your domain
-      },
-    },
-  },
 
   ...authconfig,
 

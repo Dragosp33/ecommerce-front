@@ -130,14 +130,7 @@ export const login = async (
           return { error: 'OAuthAccountNotLinked.' };
 
         default:
-          //return { error: 'Oops! Something went wrong..' };
-          return NextResponse.json(
-            { message: 'Invalid login', error: 'Could not login' },
-
-            {
-              status: 500,
-            }
-          );
+          return { error: 'Oops! Something went wrong..' };
       }
     }
     throw error;

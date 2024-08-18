@@ -10,7 +10,9 @@ const nextConfig = {
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: process.env.ADMIN_DOMAIN_URL || 'http://localhost:3001',
+            value:
+              process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL ||
+              'http://admin.shop.localhost:3001',
           }, // replace this your actual origin
           {
             key: 'Access-Control-Allow-Methods',

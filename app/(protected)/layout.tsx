@@ -36,20 +36,16 @@ export const metadata: Metadata = {
     telephone: false,
   },
 };
-export default async function Layout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
   return (
-    <SessionProvider session={session}>
-      <div className='relative flex min-h-screen flex-col bg-background'>
-        <Navbar />
-        <main className='flex-1 border-b'>
-          <div className=' relative py-6 lg:py-8 md:mx-6'>{children}</div>
-        </main>
-      </div>
-    </SessionProvider>
+    <div className='relative flex min-h-screen flex-col bg-background'>
+      <main className='flex-1 border-b'>
+        <div className=' relative py-6 lg:py-8 md:mx-6'>{children}</div>
+      </main>
+    </div>
   );
 }
