@@ -42,6 +42,22 @@ const authConfig = {
             : '.shop.localhost', // Adjust as needed for your domain
       },
     },
+    csrfToken: {
+      name:
+        process.env.NODE_ENV == 'production'
+          ? `__Host-authjs.csrf-token`
+          : 'authjs.csrf-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: true,
+        domain:
+          process.env.NODE_ENV === 'production'
+            ? '.shop.dragospolifronie.com'
+            : '.shop.localhost', // Adjust as needed for your domain
+      },
+    },
   },
 } satisfies NextAuthConfig;
 
