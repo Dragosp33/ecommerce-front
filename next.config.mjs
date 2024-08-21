@@ -27,6 +27,15 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'photobucket333.s3.eu-west-3.amazonaws.com',
+        port: '',
+      },
+    ],
+  },
 };
 
 //module.exports = nextConfig;

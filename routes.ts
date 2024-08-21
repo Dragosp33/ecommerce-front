@@ -6,6 +6,14 @@ export const publicRoutes = [
   '/home',
 ];
 
+export const protectedRoutes = [
+  '/settings',
+  '/settings/accounts',
+  '/client',
+  '/server',
+  '/verify-session',
+];
+
 /**
  * Array of routes that are used for authentication.
  */

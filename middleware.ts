@@ -6,6 +6,7 @@ import {
   apiPrefix,
   publicRoutes,
   authRoutes,
+  protectedRoutes,
   DEFAULT_LOGIN_REDIRECT,
 } from '@/routes';
 
@@ -28,6 +29,7 @@ export default auth((req) => {
   const isApiRoute = nextUrl.pathname.startsWith(apiPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  const isProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
     console.log('middleware is api auth route: ', nextUrl.pathname);
@@ -61,7 +63,7 @@ export default auth((req) => {
     return;
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  if (!isLoggedIn && isProtectedRoute) {
     let newURL = '/auth/login';
     if (callback) {
       newURL = newURL.concat(`?callback=${callback}`);
