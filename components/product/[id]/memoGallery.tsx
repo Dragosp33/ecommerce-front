@@ -107,7 +107,7 @@ const MemoGallery = ({ images }: { images: any[] }) => {
   }, [mainApi, thumbnailApi]);
 
   return (
-    <div className='w-80 max-w-xl sm:w-auto ml-6 sm:px-6 mx-6'>
+    <div className='w-auto max-w-xl sm:w-auto ml-6 sm:px-6 mx-6'>
       <Carousel setApi={setMainApi}>
         <CarouselContent className='m-1'>{mainImage}</CarouselContent>
         <CarouselPrevious />
