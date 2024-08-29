@@ -56,7 +56,7 @@ const FeaturedProduct = () => {
   );
 };
 
-const FeatProduct = () => {
+const FeatProduct = async () => {
   return (
     <div className='mt-5 md:mt-2'>
       <div className='grid sm:grid-cols-[1.1fr_0.9fr]   min-h-[70vh] '>
