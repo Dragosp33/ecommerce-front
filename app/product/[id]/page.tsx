@@ -74,7 +74,7 @@ export default async function Product({
   const stock = 2;
 
   return (
-    <div className='container w-full max-w-screen-2xl'>
+    <div className='sm:container w-full max-w-screen-2xl'>
       <div className='flex flex-col md:mx-8 mx-6'>
         <Breadcrumb>
           <BreadcrumbList>
@@ -97,8 +97,10 @@ export default async function Product({
         <div className='flex w-full flex-col md:flex-row items-start relative mt-0'>
           <div className='w-full md:max-w-xl md:sticky top-0 mr-8'>
             <MemoGallery images={exactMatch.photos} />
+            <p className='border-2 rounded-xl px-2 py-4'>Category: Phones</p>
           </div>
-          <div className='flex lg:flex-row flex-col-reverse lg:grow-1  justify-around lg:w-full mt-8'>
+          {/* here put max-width: 200px for md */}
+          <div className='flex lg:flex-row flex-col-reverse lg:grow-1  justify-around w-full md:w-auto lg:w-full mt-8 max-w-full md:max-w-[200px] lg:max-w-full '>
             <ProductDropdown
               exactMatch={exactMatch}
               relatedVariants={relatedVariants}

@@ -39,6 +39,7 @@ const MemoGallery = ({ images }: { images: any[] }) => {
             fill
             sizes='(max-width: 768px) 99vw, (max-width: 1200px) 50vw, 33vw'
             priority={index === 0}
+            //priority
             className='px-4'
             style={{ objectFit: 'contain' }}
             //style={{ objectFit: 'contain', padding: '2rem' }}
@@ -107,11 +108,11 @@ const MemoGallery = ({ images }: { images: any[] }) => {
   }, [mainApi, thumbnailApi]);
 
   return (
-    <div className='w-auto max-w-xl sm:w-auto ml-6 sm:px-6 mx-6'>
+    <div className='w-auto max-w-xl sm:w-auto ml-6 sm:px-6 sm:mx-6 mx-0'>
       <Carousel setApi={setMainApi}>
         <CarouselContent className='m-1'>{mainImage}</CarouselContent>
-        <CarouselPrevious className='' />
-        <CarouselNext className='' />
+        <CarouselPrevious className='left-0 sm:-left-12' />
+        <CarouselNext className='right-0 sm:-right-12' />
       </Carousel>
       <Carousel setApi={setThumbnailApi}>
         <CarouselContent className='m-1'>{thumbnailImages}</CarouselContent>

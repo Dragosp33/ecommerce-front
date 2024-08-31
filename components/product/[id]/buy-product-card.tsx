@@ -15,7 +15,7 @@ const BuyProductCard = ({
   stock: number;
 }) => {
   return (
-    <Card className='md:max-w-[300px]'>
+    <Card className='lg:max-w-[300px]'>
       <CardHeader>
         <h1 className='text-xl font-bold text-emerald-500'>
           {' '}
