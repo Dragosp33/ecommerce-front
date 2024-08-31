@@ -22,14 +22,16 @@ export default function ProductDropdown({
   params: any;
 }) {
   return (
-    <div>
+    <div className='lg:mr-4 xl:mr-2 mt-4'>
       {Object.entries(exactMatch.properties).map(([key, value]) => (
         <div
           key={key}
-          style={{ marginBottom: '1rem' }}
-          className='flex flex-row items-center'
+          style={{ marginBottom: '2rem' }}
+          className='flex flex-col '
         >
-          <label htmlFor={key}>{key}</label>
+          <label htmlFor={key} className=' mb-2'>
+            Choose {key}
+          </label>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline'>

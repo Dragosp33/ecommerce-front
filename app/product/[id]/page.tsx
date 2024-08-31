@@ -1,8 +1,28 @@
 import { BuyButton } from '@/components/product/[id]/buttons';
+import BuyProductCard from '@/components/product/[id]/buy-product-card';
 import Gallery from '@/components/product/[id]/gallery';
 import MemoGallery from '@/components/product/[id]/memoGallery';
 import ProductDropdown from '@/components/product/[id]/properties-link';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/card';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { twJoin } from 'tailwind-merge';
 
 export default async function Product({
   searchParams,
@@ -51,46 +71,70 @@ export default async function Product({
     return redirect(`/product/${id}?${urlParams.join('&')}`);
   }
 
+  const stock = 2;
+
   return (
-    <div className='flex flex-col md:mx-8 mx-6'>
-      <div className='w-full'>
-        <h1> {exactMatch.title} </h1>
-      </div>
-      <div className='flex w-full flex-col md:flex-row items-center'>
+    <div className='container w-full max-w-screen-2xl'>
+      <div className='flex flex-col md:mx-8 mx-6'>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href='/components'>Electronics</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Laptops</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <div className='w-full'>
-          <MemoGallery images={exactMatch.photos} />
+          <h1 className='text-xl font-semibold'> {exactMatch.title} </h1>
         </div>
-        <div>
-          <BuyButton />
-
-          <ProductDropdown
-            exactMatch={exactMatch}
-            relatedVariants={relatedVariants}
-            searchParams={searchParams}
-            params={params}
-          />
+        <div className='flex w-full flex-col md:flex-row items-start relative mt-0'>
+          <div className='w-full md:max-w-xl md:sticky top-0 mr-8'>
+            <MemoGallery images={exactMatch.photos} />
+          </div>
+          <div className='flex lg:flex-row flex-col-reverse lg:grow-1  justify-around lg:w-full mt-8'>
+            <ProductDropdown
+              exactMatch={exactMatch}
+              relatedVariants={relatedVariants}
+              searchParams={searchParams}
+              params={params}
+            />
+            <div className='flex flex-col'>
+              <BuyProductCard exactMatch={exactMatch} stock={stock} />
+              <Card className='mt-4 p-0'>
+                <CardContent className='py-4 px-4 flex flex-row justify-between'>
+                  <p> Brand: </p>
+                  <p> Apple </p>
+                </CardContent>
+                <CardFooter className='p-0'>
+                  <Button
+                    className='w-full border-b-0 border-x-0 rounded-t-none rounded-b-xl'
+                    variant='outline'
+                    asChild
+                  >
+                    <Link
+                      className='flex flex-row w-full justify-between'
+                      href={'/'}
+                    >
+                      See more
+                      <FaArrowRight />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </div>
+        <div className='mt-8'>
+          <p> {exactMatch.description}</p>
         </div>
       </div>
-      <div>
-        <p> {exactMatch.description}</p>
-      </div>
-      {/*}
-      <div className=''>
-        {Object.entries(exactMatch.properties).map(([key, value]) => (
-          <p key={key}>
-            {key}: {String(value)}
-          </p>
-        ))}
-
-        <BuyButton />
-
-        <ProductDropdown
-          exactMatch={exactMatch}
-          relatedVariants={relatedVariants}
-          searchParams={searchParams}
-          params={params}
-        />
-      </div>*/}
     </div>
   );
 }

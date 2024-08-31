@@ -8,12 +8,14 @@ import { LoginButton } from '@/components/auth/login-button';
 import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import Docs from '@/components/home/docs';
+import FeatProduct from '@/components/main-page/featured-product';
 
 const font = Poppins({
   subsets: ['latin'],
   weight: ['600'],
 });
 
+/*
 export default function Home() {
   return (
     <main className='flex min-h-full flex-col items-center justify-center'>
@@ -86,4 +88,9 @@ export default function Home() {
       <Docs />
     </main>
   );
+}
+*/
+
+export default function Home() {
+  return <FeatProduct />;
 }
