@@ -47,7 +47,10 @@ export default async function Product({
   console.log({ url });
   //const res = await fetch(url, { method: 'GET' });
 
-  const res = await fetch(url + urlParams.join('&'), { method: 'GET' });
+  const res = await fetch(url + urlParams.join('&'), {
+    method: 'GET',
+    next: { revalidate: 10 },
+  });
 
   const parsedRes = await res.json();
   console.log(parsedRes);
