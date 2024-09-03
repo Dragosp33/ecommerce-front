@@ -6,18 +6,19 @@ import Footer from '@/components/footer';
 import { auth } from '@/auth';
 import { SessionProvider } from 'next-auth/react';
 import Navbar from '@/components/navbar';
+import { CartContextProvider } from '@/hooks/cart-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | DPC Auth',
-    default: 'Next auth',
+    template: '%s | TShop',
+    default: 'Tailored Shop',
   },
-  description: 'DPC Auth dashboard.',
+  description: 'Tailored Shopping Platform',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
   generator: 'Next.js',
-  applicationName: 'DPC Auth',
+  applicationName: 'Tailored Shop',
   referrer: 'origin-when-cross-origin',
   keywords: [
     'Next.js',
@@ -49,16 +50,18 @@ export default async function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <SessionProvider session={session}>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
+          <CartContextProvider>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Navbar />
 
-            {children}
-          </ThemeProvider>
+              {children}
+            </ThemeProvider>
+          </CartContextProvider>
         </SessionProvider>
         <Footer />
       </body>

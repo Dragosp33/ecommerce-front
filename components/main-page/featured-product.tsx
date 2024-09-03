@@ -61,7 +61,9 @@ const FeatProduct = async () => {
     <div className='mt-5 md:mt-2'>
       <div className='grid sm:grid-cols-[1.1fr_0.9fr]   min-h-[70vh] '>
         <div className='pl-2 order-2 sm:order-none flex justify-center flex-col'>
-          <h1 className='text-4xl mb-5 mx-2 font-bold'>Macbook 14 PRO</h1>
+          <h1 className='lg:text-4xl md:text-2xl sm:text-xl text-md mb-5 mx-2 font-bold'>
+            Macbook 14 PRO
+          </h1>
           <Badge
             variant={'success'}
             className='mb-5 max-w-[100px] text-zinc-900'
@@ -88,8 +90,10 @@ const FeatProduct = async () => {
           <Image
             src='https://photobucket333.s3.eu-west-3.amazonaws.com/permanent/featured_product.png'
             alt='Next.js Logo'
-            className='object-contain'
+            className='object-contain min-h-[100px]'
             fill
+            sizes='(max-width: 768px) 99vw, (max-width: 1200px) 50vw, 33vw'
+            priority
           />
         </div>
       </div>

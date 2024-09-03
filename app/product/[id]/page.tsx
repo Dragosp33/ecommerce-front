@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/card';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
+import React from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
@@ -53,8 +54,12 @@ export default async function Product({
   if (parsedRes.error || !parsedRes.exactMatch) {
     return notFound();
   }
-  const { exactMatch, relatedVariants } = parsedRes;
-  //if(product ||)
+  console.log(parsedRes);
+  const { exactMatch, relatedVariants, categoryInfo } = parsedRes;
+
+  const breadCrumbs = categoryInfo.path.replace(/^,|,$/g, '').split(',');
+
+  //const
 
   // Check if searchParams are missing any properties present in exactMatch
   const missingParams = Object.entries(exactMatch.properties).filter(
@@ -78,16 +83,19 @@ export default async function Product({
       <div className='flex flex-col md:mx-8 mx-6'>
         <Breadcrumb>
           <BreadcrumbList>
+            {breadCrumbs.map((breadCrumb: string) => (
+              <React.Fragment key={breadCrumb}>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/c/${breadCrumb}`}>
+                    {breadCrumb}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </React.Fragment>
+            ))}
+
             <BreadcrumbItem>
-              <BreadcrumbLink href='/'>Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href='/components'>Electronics</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Laptops</BreadcrumbPage>
+              <BreadcrumbPage> {categoryInfo.name}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -97,16 +105,45 @@ export default async function Product({
         <div className='flex w-full flex-col md:flex-row items-start relative mt-0'>
           <div className='w-full md:max-w-xl md:sticky top-0 mr-8'>
             <MemoGallery images={exactMatch.photos} />
-            <p className='border-2 rounded-xl px-2 py-4'>Category: Phones</p>
+
+            <Button
+              className='block lg:hidden w-full underline'
+              variant='secondary'
+              asChild
+            >
+              <Link
+                className='flex flex-row w-full justify-between w-full'
+                href={'/'}
+              >
+                Category
+                <span> Laptops </span>
+              </Link>
+            </Button>
           </div>
           {/* here put max-width: 200px for md */}
           <div className='flex lg:flex-row flex-col-reverse lg:grow-1  justify-around w-full md:w-auto lg:w-full mt-8 max-w-full md:max-w-[200px] lg:max-w-full '>
-            <ProductDropdown
-              exactMatch={exactMatch}
-              relatedVariants={relatedVariants}
-              searchParams={searchParams}
-              params={params}
-            />
+            <div>
+              <ProductDropdown
+                exactMatch={exactMatch}
+                relatedVariants={relatedVariants}
+                searchParams={searchParams}
+                params={params}
+              />
+
+              <Button
+                className='lg:block hidden lg:mr-4 xl:mr-2 underline'
+                variant='secondary'
+                asChild
+              >
+                <Link
+                  className='flex flex-row w-full justify-between'
+                  href={'/'}
+                >
+                  Category
+                  <span> Laptops </span>
+                </Link>
+              </Button>
+            </div>
             <div className='flex flex-col'>
               <BuyProductCard exactMatch={exactMatch} stock={stock} />
               <Card className='mt-4 p-0'>

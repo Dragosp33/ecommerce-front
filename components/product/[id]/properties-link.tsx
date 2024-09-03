@@ -39,7 +39,7 @@ export default function ProductDropdown({
                 <IoMdArrowDropdown className='w-5 h-5' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='start'>
+            <DropdownMenuContent align='start' className='w-full'>
               {relatedVariants
                 .map((variant: any) => variant.properties[key]) // Get the relevant property value from each related variant
                 .filter((v: any, i: any, self: any) => self.indexOf(v) === i) // Remove duplicates
@@ -49,7 +49,11 @@ export default function ProductDropdown({
                   newSearchParams.set(key, relatedValue);
 
                   return (
-                    <DropdownMenuItem asChild key={relatedValue}>
+                    <DropdownMenuItem
+                      asChild
+                      key={relatedValue}
+                      className='w-full'
+                    >
                       <Link
                         href={`/product/${
                           params.id

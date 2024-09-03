@@ -39,7 +39,15 @@ const BuyProductCard = ({
         </p>
       )}
       <CardContent className='mt-4'>
-        <BuyButton />
+        <BuyButton
+          cartProduct={{
+            title: exactMatch.title,
+            SKU: exactMatch.SKU,
+            price: exactMatch.price,
+            quantity: 1,
+            thumbnail: exactMatch.thumbnail,
+          }}
+        />
         <p className='mt-4 text-sm font-light'>
           {' '}
           visit your cart after adding the item to continue with the payment, or

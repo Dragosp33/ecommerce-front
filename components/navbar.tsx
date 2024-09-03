@@ -16,17 +16,21 @@ import { usePathname } from 'next/navigation';
 import { UserButton } from './auth/user-button';
 import { ExitIcon } from '@radix-ui/react-icons';
 import { LogoutButton } from './auth/logout-button';
+import { useContext } from 'react';
+import { CartContext } from '@/hooks/cart-provider';
+import { CartHoverCard, SmallCartDropdown } from './cart/cart-hover';
 
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'>
+    <header className='sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-b-[#5542F6] dark:border-b-4'>
       <div className='container h-14 max-w-screen-2xl flex items-center justify-between px-4 py-2'>
         <Link className='flex items-center gap-2' href='#'>
           <MountainIcon className='h-6 w-6 font-bold' />
           <span className='text-lg font-bold'>DPC</span>
         </Link>
+
         <div className='hidden md:flex gap-4 items-center justify-center'>
           <Link
             className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
@@ -50,17 +54,6 @@ export default function Navbar() {
 
           <Link
             className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
-              pathname.includes('/client')
-                ? 'text-foreground/100'
-                : 'text-foreground/60'
-            }`}
-            href='/client'
-          >
-            Client
-          </Link>
-
-          <Link
-            className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
               pathname.includes('/settings')
                 ? 'text-foreground/100'
                 : 'text-foreground/60'
@@ -69,86 +62,100 @@ export default function Navbar() {
           >
             Settings
           </Link>
+          {/*<Link
+            className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
+              pathname.includes('/cart')
+                ? 'text-foreground/100'
+                : 'text-foreground/60'
+            }`}
+            href='/cart'
+          >
+            
+          </Link>*/}
+          <CartHoverCard />
           <UserButton />
           <ModeToggle />
         </div>
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button className='md:hidden' size='icon' variant='outline'>
-              <MenuIcon className='h-6 w-6' />
-              <span className='sr-only'>Toggle navigation menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side='right'>
-            <SheetHeader>
-              <SheetTitle> DPC Auth </SheetTitle>
-              <SheetDescription>
-                Check out different pages with server or client auth.
-              </SheetDescription>
-            </SheetHeader>
-            <div className='grid grid-cols gap-4 w-[200px] p-4'>
-              <SheetClose asChild>
-                <Link
-                  className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
-                    pathname === '/'
-                      ? 'text-foreground/100'
-                      : 'text-foreground/60'
-                  }`}
-                  href='/'
-                >
-                  Home
-                </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link
-                  className={`transition-colors hover:underline hover:text-foreground/80 underline-offset-4 ${
-                    pathname === '/server'
-                      ? 'text-foreground/100'
-                      : ' text-foreground/60'
-                  }`}
-                  href='/server'
-                >
-                  Server
-                </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link
-                  className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
-                    pathname === '/client'
-                      ? 'text-foreground/100'
-                      : ' text-foreground/60'
-                  }`}
-                  href='/client'
-                >
-                  Client
-                </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link
-                  className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
-                    pathname.includes('/settings')
-                      ? 'text-foreground/100'
-                      : ' text-foreground/60'
-                  }`}
-                  href='/settings'
-                >
-                  Settings
-                </Link>
-              </SheetClose>
-              <div className='flex flex-row w-full items-center justify-between'>
-                {' '}
-                <LogoutButton>
-                  <div className='flex flex-row items-center '>
-                    {' '}
-                    <ExitIcon className='w-4 h-4 mr-2' />
-                    Log out{' '}
-                  </div>
-                </LogoutButton>
-                <ModeToggle />
+        <div className='flex flex-row md:hidden'>
+          <SmallCartDropdown />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button className='md:hidden' size='icon' variant='outline'>
+                <MenuIcon className='h-6 w-6' />
+                <span className='sr-only'>Toggle navigation menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side='right'>
+              <SheetHeader>
+                <SheetTitle> DPC Auth </SheetTitle>
+                <SheetDescription>
+                  Check out different pages with server or client auth.
+                </SheetDescription>
+              </SheetHeader>
+              <div className='grid grid-cols gap-4 w-[200px] p-4'>
+                <SheetClose asChild>
+                  <Link
+                    className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
+                      pathname === '/'
+                        ? 'text-foreground/100'
+                        : 'text-foreground/60'
+                    }`}
+                    href='/'
+                  >
+                    Home
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    className={`transition-colors hover:underline hover:text-foreground/80 underline-offset-4 ${
+                      pathname === '/server'
+                        ? 'text-foreground/100'
+                        : ' text-foreground/60'
+                    }`}
+                    href='/server'
+                  >
+                    Server
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
+                      pathname === '/client'
+                        ? 'text-foreground/100'
+                        : ' text-foreground/60'
+                    }`}
+                    href='/client'
+                  >
+                    Client
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
+                      pathname.includes('/settings')
+                        ? 'text-foreground/100'
+                        : ' text-foreground/60'
+                    }`}
+                    href='/settings'
+                  >
+                    Settings
+                  </Link>
+                </SheetClose>
+                <div className='flex flex-row w-full items-center justify-between'>
+                  {' '}
+                  <LogoutButton>
+                    <div className='flex flex-row items-center '>
+                      {' '}
+                      <ExitIcon className='w-4 h-4 mr-2' />
+                      Log out{' '}
+                    </div>
+                  </LogoutButton>
+                  <ModeToggle />
+                </div>
               </div>
-            </div>
-          </SheetContent>
-        </Sheet>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
