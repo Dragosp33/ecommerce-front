@@ -76,7 +76,7 @@ export default async function Product({
     }
 
     // Redirect to the updated URL without a trailing "&"
-    return redirect(`/product/${id}?${urlParams.join('&')}`);
+    //return redirect(`/product/${id}?${urlParams.join('&')}`);
   }
 
   const stock = exactMatch.stock;

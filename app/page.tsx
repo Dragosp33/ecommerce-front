@@ -11,6 +11,7 @@ import Docs from '@/components/home/docs';
 import FeatProduct from '@/components/main-page/featured-product';
 import { Latest } from '@/components/main-page/latest-products.tsx/latest';
 import { Suspense } from 'react';
+import Loading from './loading';
 
 const font = Poppins({
   subsets: ['latin'],
@@ -100,6 +101,7 @@ export default function Home() {
       <Suspense fallback={<> Loading....</>}>
         <Latest />
       </Suspense>
+      <Loading />
     </div>
   );
 }

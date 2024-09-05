@@ -71,12 +71,64 @@ const config = {
           '0%,70%,100%': { opacity: '1' },
           '20%,50%': { opacity: '0' },
         },
+        blob: {
+          '0': {
+            borderRadius: '5% 5% 5% 5% / 40% 60% 70% 30%',
+          },
+          '15%': {
+            borderRadius: '40% 60% 70% 30% / 60% 40% 60% 40%',
+            transform: 'rotate(30deg) scale(1.1)',
+          },
+          '25%': {
+            borderRadius: '60% 40% 40% 60% / 50% 50% 50% 50%',
+            transform: 'rotate(45deg) scale(1.2)',
+          },
+          '50%': {
+            borderRadius: '50% 50% 50% 50% / 60% 30% 70% 40%',
+            transform: 'rotate(90deg) scale(1)',
+          },
+          '60%': {
+            borderRadius: '40% 60% 50% 50% / 60% 30% 70% 40%',
+            transform: 'rotate(90deg) scale(0.9)',
+          },
+          '75%': {
+            borderRadius: '70% 30% 60% 40% / 40% 60% 30% 70%',
+            transform: 'rotate(135deg) scale(1.1)',
+          },
+          '100%': {
+            borderRadius: '40% 60% 70% 30% / 0% 0% 0% 0%',
+            transform: 'rotate(360deg) scale(1)',
+          },
+        },
+        particles: {
+          '0%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
+          '25%': {
+            transform: 'translate(30px, -20px) scale(0.8)',
+            opacity: '0.8',
+          },
+          '50%': {
+            transform: 'translate(-20px, 30px) scale(1.2)',
+            opacity: '0.6',
+          },
+          '75%': {
+            transform: 'translate(-30px, -10px) scale(0.9)',
+            opacity: '0.8',
+          },
+          '100%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
+        },
+        glow: {
+          '0%, 100%': { opacity: '0.2' }, // Dim glow at start and end
+          '50%': { opacity: '1' }, // Bright glow at midpoint
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
 
         'caret-blink': 'caret-blink 1.25s ease-out infinite',
+        blob: 'blob 4s infinite ease-in-out',
+        particle: 'particles 3s infinite ease-in-out',
+        particleGlow: 'glow 2s infinite ease-in-out',
       },
     },
   },
