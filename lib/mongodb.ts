@@ -7,7 +7,9 @@ if (!process.env.MONGODB_URI) {
 }
 
 const uri = process.env.MONGODB_URI;
-const options = {};
+const options = {
+  strict: true,
+};
 
 let client;
 let clientPromise: Promise<MongoClient>;
@@ -26,7 +28,8 @@ if (process.env.NODE_ENV === 'development') {
   clientPromise = globalWithMongo._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
+
+  client = new MongoClient(uri);
   clientPromise = client.connect();
   /*clientPromise.then((client) => {
     mongoose.connect(uri).then(() => {

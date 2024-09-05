@@ -100,25 +100,20 @@ const config = {
             transform: 'rotate(360deg) scale(1)',
           },
         },
-        particles: {
-          '0%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
-          '25%': {
-            transform: 'translate(30px, -20px) scale(0.8)',
-            opacity: '0.8',
-          },
-          '50%': {
-            transform: 'translate(-20px, 30px) scale(1.2)',
-            opacity: '0.6',
-          },
-          '75%': {
-            transform: 'translate(-30px, -10px) scale(0.9)',
-            opacity: '0.8',
-          },
-          '100%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
-        },
         glow: {
           '0%, 100%': { opacity: '0.2' }, // Dim glow at start and end
           '50%': { opacity: '1' }, // Bright glow at midpoint
+        },
+        rotateLoop: {
+          '0': {
+            transform: 'rotate(0deg)',
+          },
+          '15%': {
+            transform: 'rotate(180deg)',
+          },
+          '100%': {
+            transform: 'rotate(360deg)',
+          },
         },
       },
       animation: {
@@ -127,8 +122,9 @@ const config = {
 
         'caret-blink': 'caret-blink 1.25s ease-out infinite',
         blob: 'blob 4s infinite ease-in-out',
-        particle: 'particles 3s infinite ease-in-out',
         particleGlow: 'glow 2s infinite ease-in-out',
+        rotate10Loop: 'rotateLoop 4s ease-in-out infinite',
+        'spin-slow': 'spin 4s linear infinite',
       },
     },
   },
