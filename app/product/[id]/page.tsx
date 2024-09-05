@@ -79,7 +79,7 @@ export default async function Product({
     return redirect(`/product/${id}?${urlParams.join('&')}`);
   }
 
-  const stock = 2;
+  const stock = exactMatch.stock;
 
   return (
     <div className='sm:container w-full max-w-screen-2xl'>
@@ -119,7 +119,7 @@ export default async function Product({
                 href={'/'}
               >
                 Category
-                <span> Laptops </span>
+                <span> {categoryInfo.name} </span>
               </Link>
             </Button>
           </div>

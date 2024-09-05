@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { FaGithub } from 'react-icons/fa';
 import Docs from '@/components/home/docs';
 import FeatProduct from '@/components/main-page/featured-product';
+import { Latest } from '@/components/main-page/latest-products.tsx/latest';
+import { Suspense } from 'react';
 
 const font = Poppins({
   subsets: ['latin'],
@@ -92,5 +94,12 @@ export default function Home() {
 */
 
 export default function Home() {
-  return <FeatProduct />;
+  return (
+    <div className='w-full'>
+      <FeatProduct />
+      <Suspense fallback={<> Loading....</>}>
+        <Latest />
+      </Suspense>
+    </div>
+  );
 }

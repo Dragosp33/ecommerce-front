@@ -47,6 +47,7 @@ const BuyProductCard = ({
             quantity: 1,
             thumbnail: exactMatch.thumbnail,
           }}
+          disabled={stock < 1}
         />
         <p className='mt-4 text-sm font-light'>
           {' '}

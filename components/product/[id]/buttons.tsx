@@ -6,7 +6,13 @@ import { CartProduct } from '@/lib/types';
 import { useContext } from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 
-export const BuyButton = ({ cartProduct }: { cartProduct: CartProduct }) => {
+export const BuyButton = ({
+  cartProduct,
+  disabled,
+}: {
+  cartProduct: CartProduct;
+  disabled?: boolean | false;
+}) => {
   const context = useContext(CartContext);
 
   if (!context) {
@@ -31,6 +37,7 @@ export const BuyButton = ({ cartProduct }: { cartProduct: CartProduct }) => {
       //variant='secondary'
       size={'lg'}
       className='w-full'
+      disabled={disabled}
       onClick={() => {
         context.addProduct(cartProduct);
       }}

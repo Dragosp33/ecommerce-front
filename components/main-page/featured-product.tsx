@@ -57,12 +57,68 @@ const FeaturedProduct = () => {
 };
 
 const FeatProduct = async () => {
+  let url =
+    `${process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL}/api/featured-product` ||
+    `http://admin.shop.localhost:3001/api/featured-product`;
+  const res = await fetch(url, {
+    method: 'GET',
+    next: { revalidate: 10 },
+  });
+  const product = await res.json();
+  console.log(product.variants);
+  const variant = product.variants[0];
+  if (!product || !product.variants || variant.stock === 0) {
+    return (
+      <div className='md:container mt-5 mb-5 md:mt-2 max-w-screen-2xl'>
+        <div className='grid sm:grid-cols-[1.1fr_0.9fr]   min-h-[70vh] '>
+          <div className='pl-2 order-2 sm:order-none flex justify-center flex-col'>
+            <h1 className='lg:text-4xl md:text-2xl sm:text-xl text-md mb-5 mx-2 font-bold'>
+              Macbook 14 PRO
+            </h1>
+            <Badge
+              variant={'success'}
+              className='mb-5 max-w-[100px] text-zinc-900'
+            >
+              <RiSparkling2Fill className='mr-1' /> Featured
+            </Badge>
+            <p className='mx-3'>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse hic
+              quisquam minima vitae cupiditate maiores sequi consequuntur
+              dolores sint animi voluptatum adipisci sunt, earum repellat, iste
+              eaque corporis quibusdam fugiat!
+            </p>
+            <div className='flex gap-2.5 mt-6'>
+              <Button variant={'outline'}>
+                <Link href={`/product/${11}`}>Read more</Link>
+              </Button>
+
+              <Button disabled>
+                <FaShoppingCart />
+                Add to cart
+              </Button>
+            </div>
+            <div className='text-sm text-red'> out of stock</div>
+          </div>
+          <div className='relative min-h-[200px]'>
+            <Image
+              src='https://photobucket333.s3.eu-west-3.amazonaws.com/permanent/featured_product.png'
+              alt='Next.js Logo'
+              className='object-contain min-h-[100px]'
+              fill
+              sizes='(max-width: 768px) 99vw, (max-width: 1200px) 50vw, 33vw'
+              priority
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
-    <div className='mt-5 md:mt-2'>
+    <div className='md:container mt-5 mb-5 md:mt-2 max-w-screen-2xl'>
       <div className='grid sm:grid-cols-[1.1fr_0.9fr]   min-h-[70vh] '>
         <div className='pl-2 order-2 sm:order-none flex justify-center flex-col'>
           <h1 className='lg:text-4xl md:text-2xl sm:text-xl text-md mb-5 mx-2 font-bold'>
-            Macbook 14 PRO
+            {product.title}
           </h1>
           <Badge
             variant={'success'}
@@ -70,15 +126,22 @@ const FeatProduct = async () => {
           >
             <RiSparkling2Fill className='mr-1' /> Featured
           </Badge>
-          <p className='mx-3'>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse hic
-            quisquam minima vitae cupiditate maiores sequi consequuntur dolores
-            sint animi voluptatum adipisci sunt, earum repellat, iste eaque
-            corporis quibusdam fugiat!
+          <p className='mx-3'>{variant.description}</p>
+
+          <h1 className='mx-3 mt-3 text-xl font-bold text-emerald-500'>
+            {' '}
+            {variant.price} ${' '}
+          </h1>
+          <p className='text-sm font-light mx-3'>
+            {' '}
+            the price shown is for the current configuration in the description.
+            To view prices for more configurations, press{' '}
+            <span className='font-semibold'> Read more </span>{' '}
           </p>
+
           <div className='flex gap-2.5 mt-6'>
             <Button variant={'outline'}>
-              <Link href={`/product/${11}`}>Read more</Link>
+              <Link href={`/product/${product.id}`}>Read more</Link>
             </Button>
             <Button>
               <FaShoppingCart />
@@ -86,7 +149,7 @@ const FeatProduct = async () => {
             </Button>
           </div>
         </div>
-        <div className='relative'>
+        <div className='relative min-h-[200px]'>
           <Image
             src='https://photobucket333.s3.eu-west-3.amazonaws.com/permanent/featured_product.png'
             alt='Next.js Logo'
