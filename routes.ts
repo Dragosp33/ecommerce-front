@@ -12,6 +12,7 @@ export const protectedRoutes = [
   '/client',
   '/server',
   '/verify-session',
+  '/cart',
 ];
 
 /**
