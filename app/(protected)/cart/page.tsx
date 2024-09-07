@@ -1,28 +1,33 @@
-'use client';
-
+import { CartProducts } from '@/components/cart/cart-items';
+import { UserInfoCard } from '@/components/cart/userinfos';
 import { Button } from '@/components/ui/button';
-import { loadStripe } from '@stripe/stripe-js';
-import React from 'react';
+
+import { CartProduct } from '@/lib/types';
+
+import { Suspense } from 'react';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
-);
 
-const page = () => {
-  async function getSession() {
-    const session = await fetch('');
-  }
+const Page = () => {
   return (
+    <div>
+      <CartProducts />
+      <Suspense fallback={<p> loading userinfo from stripe...</p>}>
+        <UserInfoCard />
+      </Suspense>
+    </div>
+  );
+  /*return (
     <form action='/api/checkout_sessions' method='POST'>
       <section>
         <Button type='submit' role='link' variant={'link'}>
           Checkout
         </Button>
+        <Button type='button' onClick={getItems}></Button>
       </section>
     </form>
-  );
+  );*/
 };
 
-export default page;
+export default Page;

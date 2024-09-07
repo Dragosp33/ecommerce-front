@@ -9,12 +9,6 @@ export async function initializeDb() {
 
   console.log('Database initialized');
   //isInitialized = true; // Set to true after initialization
-
-  db.collection('categories').insertOne({
-    name: 'InstrumentationTest',
-    parent: null,
-    path: null,
-  });
 }
 
 export function logServer() {

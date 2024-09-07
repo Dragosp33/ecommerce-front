@@ -46,6 +46,8 @@ const BuyProductCard = ({
             price: exactMatch.price,
             quantity: 1,
             thumbnail: exactMatch.thumbnail,
+            productId: exactMatch.id,
+            properties: exactMatch.properties,
           }}
           disabled={stock < 1}
         />

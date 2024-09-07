@@ -8,6 +8,7 @@ import {
 } from '@/data/verification-token';
 import { generateVerificationToken } from '@/lib/tokens';
 import { sendVerificationEmail } from '@/lib/mail';
+import { CreateCustomer } from '@/lib/stripe';
 
 export const NewVerification = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
@@ -35,6 +36,13 @@ export const NewVerification = async (token: string) => {
   const success = await verifyUserEmail(existingUser.id, existingToken.email);
 
   await deleteVerificationToken(token);
+  if (success) {
+    await CreateCustomer(
+      existingUser.id,
+      existingToken.email,
+      existingUser.name
+    );
+  }
   return success
     ? { success: 'Your account has been verified.', id: existingUser.id }
     : {

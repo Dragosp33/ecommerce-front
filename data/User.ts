@@ -7,6 +7,52 @@ import clientPromise from '@/lib/mongodb';
 import { replaceIdDoc } from '@/lib/utils';
 import mongoose from 'mongoose';
 
+export const setCustomerId = async (userId: string, customerId: string) => {
+  try {
+    const client = await clientPromise;
+    const db = client.db(); // Use your database name
+
+    //const user = await db.collection('users').findOne({ _id: userId });
+
+    if (!userId) {
+      return null;
+    }
+    //const parsedUser = JSON.parse(JSON.stringify(replaceIdDoc(user)));
+    //console.log('USER FOUND IS: ', parsedUser);
+    //return user;
+    const newInfo = await db.collection('userinfos').insertOne({
+      userId: new mongoose.Types.ObjectId(userId),
+      customerId: customerId,
+    });
+    return newInfo;
+  } catch {
+    return null;
+  }
+};
+
+export const getCustomerInfo = async (userId: string) => {
+  try {
+    const client = await clientPromise;
+    const db = client.db(); // Use your database name
+
+    //const user = await db.collection('users').findOne({ _id: userId });
+
+    if (!userId) {
+      return null;
+    }
+    //const parsedUser = JSON.parse(JSON.stringify(replaceIdDoc(user)));
+    //console.log('USER FOUND IS: ', parsedUser);
+    //return user;
+    const cusInfo = await db
+      .collection('userinfos')
+      .findOne({ userId: new mongoose.Types.ObjectId(userId) });
+    console.log('CUSINFOOOOOOOOOOOO ', cusInfo);
+    return cusInfo;
+  } catch {
+    return null;
+  }
+};
+
 interface UpdateFields {
   password?: string;
   isTwoFactorEnabled?: boolean;

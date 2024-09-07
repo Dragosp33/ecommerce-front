@@ -13,6 +13,8 @@ import { useState } from 'react';
 import { FormError } from '@/components/form-error';
 
 import { FormSuccess } from '@/components/form-success';
+import { CreateCustomer } from '@/lib/stripe';
+import { getUserEmailById } from '@/data/User';
 
 export const NewVerificationForm = () => {
   const params = useSearchParams();
@@ -32,6 +34,11 @@ export const NewVerificationForm = () => {
     NewVerification(token)
       .then((data) => {
         setSuccess(data.success);
+        /*if (data.success) {
+          getUserEmailById(data.id).then((email) => CreateCustomer(email).then(
+            () => { console.log("successfully created a customer with the id. ")}
+          )).catch(() => )
+        }*/
         setRefferer(data.id);
         setError(data.error);
       })

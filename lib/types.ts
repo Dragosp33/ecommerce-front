@@ -4,6 +4,8 @@ export interface CartProduct {
   price: string | number;
   quantity: number;
   thumbnail: string;
+  productId: string;
+  properties: { [key: string]: string };
 }
 
 export interface CartContextType {

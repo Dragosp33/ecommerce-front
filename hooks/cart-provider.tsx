@@ -124,6 +124,9 @@ export function CartContextProvider({
   function clearCart() {
     console.log('Clearing cart');
     setCartProducts([]);
+    if (ls) {
+      ls.removeItem('cart');
+    }
   }
 
   console.log('PRODUSE', cartProducts);

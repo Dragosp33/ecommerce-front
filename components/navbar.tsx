@@ -117,18 +117,7 @@ export default function Navbar() {
                     Server
                   </Link>
                 </SheetClose>
-                <SheetClose asChild>
-                  <Link
-                    className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
-                      pathname === '/client'
-                        ? 'text-foreground/100'
-                        : ' text-foreground/60'
-                    }`}
-                    href='/client'
-                  >
-                    Client
-                  </Link>
-                </SheetClose>
+
                 <SheetClose asChild>
                   <Link
                     className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
