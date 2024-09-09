@@ -25,6 +25,66 @@ import React from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { twJoin } from 'tailwind-merge';
 
+import type { Metadata, ResolvingMetadata } from 'next';
+
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = params.id;
+
+  // fetch data
+  //const product = await fetch(`https://.../${id}`).then((res) => res.json());
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+  const parent_data_keywords = (await parent).keywords || [];
+
+  let url =
+    `${process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL}/api/product/${params.id}?` ||
+    `http://admin.shop.localhost:3001/api/product/${params.id}?`;
+  const urlParams: string[] = [];
+
+  // Collect the provided searchParams
+  for (const [key, value] of Object.entries(searchParams || {})) {
+    urlParams.push(`${key}=${value}`);
+  }
+
+  console.log({ url });
+  //const res = await fetch(url, { method: 'GET' });
+
+  const res = await fetch(url + urlParams.join('&'), {
+    method: 'GET',
+    next: { revalidate: 10 },
+  });
+
+  const parsedRes = await res.json();
+  console.log(parsedRes);
+  if (parsedRes.error || !parsedRes.exactMatch) {
+    return {
+      title: 'Shop Shifting Platform',
+      description: 'Make it yours',
+    };
+  }
+  console.log(parsedRes);
+  const { exactMatch, relatedVariants, categoryInfo } = parsedRes;
+
+  return {
+    title: `Buy ${exactMatch.title}`,
+    description: `${exactMatch.description} \n Configuration price: ${exactMatch.price} $`,
+    openGraph: {
+      images: [exactMatch.thumbnail, ...previousImages],
+    },
+    keywords: [exactMatch.title, categoryInfo.name, ...parent_data_keywords],
+  };
+}
+
 export default async function Product({
   searchParams,
   params,

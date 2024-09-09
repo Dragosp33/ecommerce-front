@@ -9,13 +9,15 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | DPC Auth',
+    template: '%s | Shift Settings',
     default: 'Authenticated',
   },
-  description: 'DPC Auth dashboard.',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  description: 'Authenticated page',
+  metadataBase: new URL(
+    process.env.NEXTAUTH_URL || 'http://shop.localhost:3000'
+  ),
   generator: 'Next.js',
-  applicationName: 'DPC Auth',
+  applicationName: 'Shop Shift',
   referrer: 'origin-when-cross-origin',
   keywords: [
     'Next.js',
@@ -24,6 +26,8 @@ export const metadata: Metadata = {
     'auth.js',
     'mongodb',
     'next-auth',
+    'Shopping',
+    'Settings',
     'DPC',
     'Dashboard',
   ],

@@ -12,21 +12,30 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | TShop',
-    default: 'Tailored Shop',
+    template: '%s | Shift',
+    default: 'Shop Shift',
   },
-  description: 'Tailored Shopping Platform',
-  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+  description: 'Shifting Shopping Experience',
+  metadataBase: new URL(
+    process.env.NEXTAUTH_URL_INTERNAL || 'http://shop.localhost:3000'
+  ),
   generator: 'Next.js',
-  applicationName: 'Tailored Shop',
+  applicationName: 'Shop Shifting',
   referrer: 'origin-when-cross-origin',
   keywords: [
+    'Shopping',
+    'Shop Shift',
+    'Customizable',
+    'Shop',
+    'Shift Shopping',
+    'Shift Shop',
     'Next.js',
     'React',
     'JavaScript',
     'auth.js',
     'mongodb',
     'next-auth',
+
     'DPC',
     'Dashboard',
   ],

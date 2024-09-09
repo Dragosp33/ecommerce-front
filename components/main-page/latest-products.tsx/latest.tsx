@@ -90,7 +90,7 @@ export async function Latest() {
                   </div>
                 </Card>
               </Link>
-              <Link href={`/product/${product._id.toString()}`}>
+              {/*<Link href={`/product/${product._id.toString()}`}>
                 <Card
                   key={product._id}
                   className='flex flex-col items-center justify-center'
@@ -135,7 +135,7 @@ export async function Latest() {
                     </Button>
                   </div>
                 </Card>
-              </Link>
+              </Link>*/}
             </>
           ))}
           <div className='w-full flex items-center justify-center mt-5 sm:mt-0'>

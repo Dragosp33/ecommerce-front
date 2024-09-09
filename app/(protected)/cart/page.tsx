@@ -3,11 +3,15 @@ import { UserInfoCard } from '@/components/cart/userinfos';
 import { Button } from '@/components/ui/button';
 
 import { CartProduct } from '@/lib/types';
+import { Metadata } from 'next';
 
 import { Suspense } from 'react';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
+export const metadata: Metadata = {
+  title: 'Cart',
+};
 
 const Page = () => {
   return (
