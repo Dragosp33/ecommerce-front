@@ -1,5 +1,3 @@
-'use client';
-
 import Filters from '@/components/shop/category/filters';
 
 export default async function layout({
