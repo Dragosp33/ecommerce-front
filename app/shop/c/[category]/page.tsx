@@ -17,7 +17,7 @@ function page({
   console.log('SERVER RENDER', searchParams);
   return (
     <>
-      <Suspense>
+      <Suspense fallback={<p> Loading products...</p>}>
         <CategoryProducts name={category} params={searchParams} />
       </Suspense>
     </>
