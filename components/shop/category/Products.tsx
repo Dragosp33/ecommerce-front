@@ -35,7 +35,7 @@ function VariantCard({ variant }: { variant: Variant }) {
             />
           </div>
           <div>
-            <h1>{variant.title}</h1>
+            <h1 className='text-sm sm:text-md mx-2 '>{variant.title}</h1>
           </div>
         </CardContent>
       </Link>

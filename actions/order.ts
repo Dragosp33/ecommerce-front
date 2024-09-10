@@ -1,5 +1,6 @@
 import clientPromise from '@/lib/mongodb';
 import { CartProduct } from '@/lib/types';
+import mongoose from 'mongoose';
 
 export async function updateDbOrder(
   userId: string,
@@ -17,7 +18,7 @@ export async function createDbOrder(
     const client = await clientPromise;
     const db = client.db();
     const order = await db.collection('orders').insertOne({
-      userId: userId,
+      userId: new mongoose.Types.ObjectId(userId),
       products: lineItems,
       status: 'paid',
       amountTotal: amountTotal,

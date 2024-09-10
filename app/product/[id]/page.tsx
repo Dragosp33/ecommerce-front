@@ -149,7 +149,7 @@ export default async function Product({
             {breadCrumbs.map((breadCrumb: string) => (
               <React.Fragment key={breadCrumb}>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/c/${breadCrumb}`}>
+                  <BreadcrumbLink href={`shop/c/${breadCrumb}`}>
                     {breadCrumb}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
