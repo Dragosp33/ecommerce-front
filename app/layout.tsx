@@ -7,6 +7,7 @@ import { auth } from '@/auth';
 import { SessionProvider } from 'next-auth/react';
 import Navbar from '@/components/navbar';
 import { CartContextProvider } from '@/hooks/cart-provider';
+import { ServerCategories } from '@/components/categories-filter/server-categories';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -66,7 +67,10 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Navbar />
+              <Navbar>
+                {' '}
+                <ServerCategories />{' '}
+              </Navbar>
 
               {children}
             </ThemeProvider>

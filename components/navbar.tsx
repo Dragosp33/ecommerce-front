@@ -14,22 +14,57 @@ import {
 import { ModeToggle } from './theme-toggle';
 import { usePathname } from 'next/navigation';
 import { UserButton } from './auth/user-button';
-import { ExitIcon } from '@radix-ui/react-icons';
+import { ExitIcon, PlusIcon } from '@radix-ui/react-icons';
 import { LogoutButton } from './auth/logout-button';
-import { useContext } from 'react';
-import { CartContext } from '@/hooks/cart-provider';
+import { GoPlus } from 'react-icons/go';
 import { CartHoverCard, SmallCartDropdown } from './cart/cart-hover';
+//import { DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
+import CategoriesDropdown, { TestDropdown } from './categories-filter/dropdown';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import CategoryMenu from './categories-filter/dropdown';
+import { ServerCategories } from './categories-filter/server-categories';
 
-export default function Navbar() {
+export default function Navbar({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
     <header className='sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-b-[#5542F6] dark:border-b-4'>
       <div className='container h-14 max-w-screen-2xl flex items-center justify-between px-4 py-2'>
-        <Link className='flex items-center gap-2' href='#'>
-          <MountainIcon className='h-6 w-6 font-bold' />
-          <span className='text-lg font-bold'>DPC</span>
-        </Link>
+        <div className='flex flex-row items-center justify-center'>
+          <Link className='flex items-center gap-2' href='/'>
+            <MountainIcon className='h-6 w-6 font-bold' />
+            <span className='text-lg font-bold'>ShopShift</span>
+          </Link>
+          <div className='ml-2'>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant={'secondary'}
+                  className='font-semibold text-md group'
+                >
+                  <span className='ml-1 text-sm inline-block group-data-[state=open]:hidden mr-2'>
+                    {' '}
+                    |{' '}
+                  </span>
+                  <GoPlus
+                    className='mr-2 w-4 h-4 group-data-[state=open]:visible group-data-[state=open]:rotate-[135deg] transition-transform delay-300  group-data-[state=closed]:rotate-0
+                  group-data-[state=closed]:invisible group-data-[state=closed]:h-0 group-data-[state=closed]:w-0 group-data-[state=open]:duration-700 group-data-[state=closed]:duration-0'
+                  />{' '}
+                  categories
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>{children}</DropdownMenuContent>
+              {/*<DropdownMenuContent>
+                <ServerCategories />
+              </DropdownMenuContent>
+            </DropdownMenu>*/}
+            </DropdownMenu>
+          </div>
+        </div>
 
         <div className='hidden md:flex gap-4 items-center justify-center'>
           <Link
@@ -87,9 +122,9 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent side='right'>
               <SheetHeader>
-                <SheetTitle> DPC Auth </SheetTitle>
+                <SheetTitle> ShopShift </SheetTitle>
                 <SheetDescription>
-                  Check out different pages with server or client auth.
+                  Find our latest products and best sellers.
                 </SheetDescription>
               </SheetHeader>
               <div className='grid grid-cols gap-4 w-[200px] p-4'>

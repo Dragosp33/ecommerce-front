@@ -21,6 +21,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
+import { generateVariantUrl } from '@/lib/utils';
+
 export function CartHoverCard() {
   const pathname = usePathname();
   const context = useContext(CartContext);
@@ -62,7 +64,12 @@ export function CartHoverCard() {
                   />
                   <AvatarFallback>VC</AvatarFallback>
                 </Avatar>
-                <div>{product.title}</div>
+                <div>
+                  <Link href={generateVariantUrl(product)}>
+                    {' '}
+                    {product.title}{' '}
+                  </Link>
+                </div>
                 <div className='flex flex-col justify-between'>
                   {product.price} x {product.quantity}
                   <Button
@@ -84,8 +91,8 @@ export function CartHoverCard() {
               <p>{context?.totalPrice}</p>
             </div>
             <div className='w-full'>
-              <Button className='w-full dark:bg-[#5542F6] mt-2'>
-                Go to cart
+              <Button asChild className='w-full dark:bg-[#5542F6] mt-2'>
+                <Link href={'/cart'}> Go to cart</Link>
               </Button>
             </div>
           </>
@@ -124,7 +131,7 @@ export function SmallCartDropdown() {
           `(${context.totalProducts})`}{' '}
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className='mt-2 shadow-2xl w-[99vw] sm:hidden'>
+      <DropdownMenuContent className='mt-2 shadow-2xl w-[99vw] md:hidden'>
         {products.length > 0 ? (
           <>
             {products.map((product) => (
@@ -140,7 +147,10 @@ export function SmallCartDropdown() {
                   <AvatarFallback>VC</AvatarFallback>
                 </Avatar>
                 <div className='text-pretty max-w-[200px] break-all'>
-                  {product.title}
+                  <Link href={generateVariantUrl(product)}>
+                    {' '}
+                    {product.title}{' '}
+                  </Link>
                 </div>
                 <div className='flex flex-col justify-between'>
                   {product.price} x {product.quantity}
@@ -161,7 +171,9 @@ export function SmallCartDropdown() {
               <p>{context.totalPrice}</p>
             </div>
             <div className='w-full mt-2'>
-              <Button className='w-full bg-[#5542F6]'>Go to cart</Button>
+              <Button asChild className='w-full dark:bg-[#5542F6] mt-2'>
+                <Link href={'/cart'}> Go to cart</Link>
+              </Button>
             </div>
           </>
         ) : (

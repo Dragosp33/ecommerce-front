@@ -24,3 +24,14 @@ export function replaceIdFromAccount(doc: mongoose.mongo.BSON.Document | null) {
   delete doc._id;
   return doc;
 }
+
+export const generateVariantUrl = (variant: any) => {
+  console.log('GENERATE VARIANT URL: ', variant);
+  const queryParams = new URLSearchParams(variant.properties).toString();
+  console.log(
+    'GENERATE VARIANT URL: ',
+    `/product/${variant.productId}?${queryParams}`
+  );
+
+  return `/product/${variant.productId}?${queryParams}`;
+};

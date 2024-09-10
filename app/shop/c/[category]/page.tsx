@@ -2,7 +2,7 @@ import Filters from '@/components/shop/category/filters';
 import { CategoryProducts } from '@/components/shop/category/Products';
 import React, { Suspense } from 'react';
 
-function page({
+async function page({
   params,
   searchParams,
 }: {

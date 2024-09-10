@@ -1,3 +1,5 @@
+//'use client';
+
 import Filters from '@/components/shop/category/filters';
 
 export default async function layout({
@@ -20,9 +22,11 @@ export default async function layout({
   console.log('FILTERS:::: ', filters, filters.properties);
 
   return (
-    <>
-      {filters.properties && <Filters filters={filters.properties} />}
-      {children}
-    </>
+    <div className='w-full bg-secondary'>
+      <div className='max-w-screen-2xl md:container md:px-10 sm:px-5 px-2 mx-auto'>
+        {filters.properties && <Filters filters={filters.properties} />}
+        {children}
+      </div>
+    </div>
   );
 }

@@ -1,9 +1,69 @@
+'use server';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { generateVariantUrl } from '@/lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
+import { BuyButton } from '@/components/product/[id]/buttons';
 
-const generateVariantUrl = (variant: any) => {
-  const queryParams = new URLSearchParams(variant.properties).toString();
-  return `/product/${variant.productId}?${queryParams}`;
-};
+interface Variant {
+  productId: string;
+  title: string;
+  thumbnail: string;
+  properties: Record<string, string>;
+  price: string | number;
+  SKU: string;
+}
+
+function VariantCard({ variant }: { variant: Variant }) {
+  console.log('VARIANT CARDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', variant);
+  return (
+    <Card
+      // key={variant.productId}
+      className='flex flex-col items-center h-[360px] relative overflow-hidden'
+    >
+      <Link href={generateVariantUrl(variant)}>
+        <CardContent>
+          <div className=' relative h-[200px] flex align-center justify-center min-w-[150px] mx-5'>
+            <Image
+              //width={150}
+              //height={150}
+              fill
+              src={variant.thumbnail}
+              alt='....'
+              className='object-contain max-h-[100px] self-center transition-transform scale-125 duration-1000 hover:scale-150 '
+            />
+          </div>
+          <div>
+            <h1>{variant.title}</h1>
+          </div>
+        </CardContent>
+      </Link>
+
+      <div className='flex flex-col w-full items-start mt-2 mb-2 absolute bottom-0'>
+        <div>
+          <p className='text-sm font-light mb-2 ml-2'>
+            {' '}
+            price: <span className='text-emerald-500'> {variant.price}$</span>
+          </p>
+        </div>
+
+        <BuyButton
+          cartProduct={{
+            title: variant.title,
+            SKU: variant.SKU,
+            properties: variant.properties,
+            productId: variant.productId,
+            price: variant.price,
+            thumbnail: variant.thumbnail,
+            quantity: 1,
+          }}
+          btnVariant='outline'
+        />
+      </div>
+    </Card>
+  );
+}
 
 export async function CategoryProducts({
   name,
@@ -33,8 +93,12 @@ export async function CategoryProducts({
   });
 
   const products = await res.json();
-  console.log({ products });
-  if (!products) {
+  console.log('MATCHED: ', products.matchedVariants);
+  if (
+    !products ||
+    !products.matchedVariants ||
+    products.matchedVariants.length < 1
+  ) {
     return (
       <div>
         <p> Sorry, we could not find any products </p>
@@ -42,11 +106,10 @@ export async function CategoryProducts({
     );
   }
   return (
-    <div>
+    <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4'>
       {products.matchedVariants.map((variant: any) => (
         <div key={variant.SKU} className='mt-3 mb-3'>
-          <h2>{variant.title}</h2>
-          <Link href={generateVariantUrl(variant)}> see more </Link>
+          <VariantCard variant={variant} />
         </div>
       ))}
     </div>

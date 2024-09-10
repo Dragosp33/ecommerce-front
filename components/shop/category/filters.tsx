@@ -10,8 +10,6 @@ interface CategoryFiltersProps {
 }
 
 const Filters = React.memo(({ filters }: CategoryFiltersProps) => {
-  console.log('FILTERS RENDERS!!!');
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -46,19 +44,37 @@ const Filters = React.memo(({ filters }: CategoryFiltersProps) => {
       }
 
       // Push the updated URL without a page reload
+      // Use router.replace to avoid a full page reload
       router.push(
         `/shop/c/${window.location.pathname
           .split('/')
           .pop()}?${searchParams.toString()}`
+
+        //{ shallow: true }
       );
     },
     [router]
   );
 
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      console.log('NAME, VALUE', name, value);
+      const params = new URLSearchParams(searchParams.toString());
+      if (params.get(name)) {
+        //params.set(name, value);
+        params.set(name, params.get(name)?.concat(value) || '');
+      } else {
+        params.set(name, value);
+      }
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   return (
     <div>
       <FilterSheet filters={filters} handleChange={handleFilterChange} />
-      {Object.entries(filters).map(([key, values]) => (
+      {/*Object.entries(filters).map(([key, values]) => (
         <div key={key}>
           <h4>{key}</h4>
           {values.map((value) => (
@@ -73,7 +89,7 @@ const Filters = React.memo(({ filters }: CategoryFiltersProps) => {
             </label>
           ))}
         </div>
-      ))}
+      ))*/}
     </div>
   );
 });
