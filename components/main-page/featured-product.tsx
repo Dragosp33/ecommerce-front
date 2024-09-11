@@ -151,7 +151,7 @@ const FeatProduct = async () => {
         </div>
         <div className='relative min-h-[200px]'>
           <Image
-            src='https://photobucket333.s3.eu-west-3.amazonaws.com/permanent/featured_product.png'
+            src={variant.thumbnail}
             alt='Next.js Logo'
             className='object-contain min-h-[100px]'
             fill

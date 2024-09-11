@@ -12,6 +12,7 @@ import FeatProduct from '@/components/main-page/featured-product';
 import { Latest } from '@/components/main-page/latest-products.tsx/latest';
 import { Suspense } from 'react';
 import Loading from './loading';
+import { Best } from '@/components/main-page/best-sellers/best';
 
 const font = Poppins({
   subsets: ['latin'],
@@ -99,9 +100,11 @@ export default function Home() {
     <div className='w-full'>
       <FeatProduct />
       <Suspense fallback={<Loading />}>
-        <Latest />
+        <Latest limit={5} showShop />
       </Suspense>
-      <Loading />
+      <Suspense fallback={<Loading />}>
+        <Best limit={5} />
+      </Suspense>
     </div>
   );
 }

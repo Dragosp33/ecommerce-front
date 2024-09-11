@@ -7,6 +7,10 @@ import { Button } from '../ui/button';
 import { loadStripe } from '@stripe/stripe-js';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { isFullfilledOrder } from '@/lib/stripe';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { generateVariantUrl } from '@/lib/utils';
+import Link from 'next/link';
+import { TiDeleteOutline } from 'react-icons/ti';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
@@ -88,13 +92,55 @@ export const CartProducts = () => {
     );
   }
   return (
-    <div>
-      {products.map((product: CartProduct) => (
-        <div key={product.SKU}>
-          {product.title}
-          {product.quantity}
+    <div className='mx-2'>
+      <div>
+        {products.map((product) => (
+          <div
+            className='flex justify-between space-x-4 mb-2 text-xs border-b-2'
+            //className='grid col'
+            key={product.SKU}
+          >
+            <div className='flex flex-row'>
+              <Avatar className='self-center w-32 h-32 rounded-full'>
+                <AvatarImage
+                  src={product.thumbnail}
+                  className='object-contain'
+                  width={200}
+                  height={200}
+                />
+                <AvatarFallback>VC</AvatarFallback>
+              </Avatar>
+              <div>
+                <Link
+                  href={generateVariantUrl(product)}
+                  className='text-sm sm:text-lg'
+                >
+                  {' '}
+                  {product.title}{' '}
+                </Link>
+              </div>
+            </div>
+            <div className='flex flex-col justify-between'>
+              {product.price} x {product.quantity}
+              <Button
+                onClick={() => {
+                  context?.removeWholeQuantity(product.SKU);
+                }}
+                size='sm'
+                className='text-sm border-0 mt-2'
+                variant='outline'
+              >
+                <TiDeleteOutline className='w-4 h-4 p-0' />
+              </Button>
+            </div>
+          </div>
+        ))}
+        {/* Display total price if there are products */}
+        <div className='flex justify-between space-x-4 text-xs mt-2'>
+          <p>Total:</p>
+          <p>{context?.totalPrice}</p>
         </div>
-      ))}
+      </div>
 
       <Button onClick={createCheckoutSession}> Go to checkout </Button>
     </div>
