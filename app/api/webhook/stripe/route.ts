@@ -2,7 +2,7 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { fulfillOrder } from '@/actions/fulfill-order';
 
-const stripe = require('stripe')(process.env.STRIPE_PRIVATE);
+const stripe = require('stripe')(process.env.SECRET_KEY);
 
 const secret = process.env.STRIPE_WEBHOOK_SECRET || '';
 
