@@ -8,9 +8,19 @@ import { loadStripe } from '@stripe/stripe-js';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { isFullfilledOrder } from '@/lib/stripe';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { generateVariantUrl } from '@/lib/utils';
+import { cn, generateVariantUrl } from '@/lib/utils';
 import Link from 'next/link';
 import { TiDeleteOutline } from 'react-icons/ti';
+import { Card, CardContent, CardFooter, CardHeader } from '../ui/card';
+import { BackButton } from '../auth/back-button';
+import Social from '../auth/social';
+import { FormSuccess } from '../form-success';
+import BeatLoader from 'react-spinners/BeatLoader';
+import { Poppins } from 'next/font/google';
+const font = Poppins({
+  subsets: ['latin'],
+  weight: ['600'],
+});
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
@@ -71,15 +81,31 @@ export const CartProducts = () => {
     }
   }
   if (isLoading) {
-    return <div>Loading</div>;
+    return <BeatLoader />;
   }
 
   if (success) {
     return (
-      <div>
-        <h2> Thank you for your purchase</h2>
-        <p> Continue shopping </p>
-      </div>
+      <Card className='w-[400px] shadow-md'>
+        <CardHeader>
+          <div className='w-full flex flex-col gap-y-4 items-center justify-center'>
+            <h1 className={cn('text-3xl font-semibold', font.className)}>
+              Thank you for your purchase{' '}
+            </h1>
+            <p className='text-muted-foreground text-sm'>
+              Your data has been saved.
+            </p>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className='flex items-center w-full justify-center'>
+            <FormSuccess message={`Order completed`} />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <BackButton href={'/shop'} label={'Continue shopping'} />
+        </CardFooter>
+      </Card>
     );
   }
 
