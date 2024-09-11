@@ -70,12 +70,14 @@ export const CartProducts = () => {
       },
       body: JSON.stringify({
         items,
-        // You can pass customer details if needed
-        // customer: { id: 'customer_id' }
       }),
     });
 
-    const { id, url } = await response.json();
+    const res = await response.json();
+    if (res.error) {
+      console.log(res.error);
+    }
+    const { id, url } = res;
 
     if (url) {
       // Redirect to the Stripe Checkout page

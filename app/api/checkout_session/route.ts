@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 import { getCustomerInfo } from '@/data/User';
 import { user } from '@/lib/auth';
 import { CartProduct } from '@/lib/types';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 /*const buildLineItems = (item: any) => {
   return {
@@ -27,22 +27,22 @@ function buildLineItems(items: CartProduct[]) {
   }));
 }
 
-export async function POST(req: Request) {
-  const currentUser = await user();
-  if (!currentUser || !currentUser.email || !currentUser.id) {
-    return new Response(JSON.stringify({ error: 'Not authorized' }), {
-      status: 403,
-    });
-  }
-  console.log('welcome checkout session');
-  const cusInfo = await getCustomerInfo(currentUser.id);
-  if (!cusInfo) {
-    return new Response(JSON.stringify({ error: 'Not authorized' }), {
-      status: 403,
-    });
-  }
-
+export async function POST(req: NextRequest) {
   try {
+    const currentUser = await user();
+    if (!currentUser || !currentUser.email || !currentUser.id) {
+      return new Response(JSON.stringify({ error: 'Not authorized' }), {
+        status: 403,
+      });
+    }
+    console.log('welcome checkout session');
+    const cusInfo = await getCustomerInfo(currentUser.id);
+    if (!cusInfo) {
+      return new Response(JSON.stringify({ error: 'Not authorized' }), {
+        status: 403,
+      });
+    }
+
     const req_body = await req.json();
     const origin = req.headers.get('origin');
     console.log({ req_body });
@@ -124,9 +124,9 @@ export async function POST(req: Request) {
         headers: { 'Content-Type': 'application/json' },
       }
     );
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
-    return new Response(JSON.stringify({ error: 'Something went wrong' }), {
+    return new Response(JSON.stringify({ error: err }), {
       status: 400,
     });
     /*return Response.error(err.statusCode || 500).json(
