@@ -50,6 +50,13 @@ export async function POST(req: Request) {
     const { items, customer } = req_body;
     // console.log(items, customer);
     const lineItems = buildLineItems(items);
+    const k = items.map((item: any) => {
+      return {
+        productId: k.productId,
+        SKU: k.SKU,
+        quantity: item.quantity,
+      };
+    });
     const session = await stripe.checkout.sessions.create({
       //customer: customer.id,
 
@@ -101,7 +108,7 @@ export async function POST(req: Request) {
       },
       metadata: {
         userId: currentUser.id,
-        products: JSON.stringify(items),
+        products: JSON.stringify([...k]),
       },
     });
 

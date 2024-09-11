@@ -1,4 +1,4 @@
-import { createDbOrder } from './order';
+import { createDbOrder, getDBTEST } from './order';
 
 export async function fulfillOrder(sessionId: string) {
   // Set your secret key. Remember to switch to your live secret key in production.
@@ -31,9 +31,36 @@ export async function fulfillOrder(sessionId: string) {
     const { userId, products } = checkoutSession.metadata;
     const parsedItems = JSON.parse(products);
     console.log(parsedItems);
+    const k = await getDBTEST(parsedItems);
+    // Transform the response data
+    // Transform the response data
+    const transformedData = k.flatMap((product: any) =>
+      product.matchingVariants.map((variant: any) => ({
+        productId: product._id.toString(), // Product ID from the product object
+        thumbnail: variant.thumbnail, // Thumbnail from the variant
+        SKU: variant.SKU, // SKU from the variant
+        price: variant.price, // Price from the variant
+        properties: variant.properties,
+      }))
+    );
+
+    // Map to add quantity back to each item
+    const finalData = transformedData.map((item) => {
+      // Find the original item with the same productId and SKU
+      const originalItem = parsedItems.find(
+        (original: any) =>
+          original.productId === item.productId && original.SKU === item.SKU
+      );
+
+      return {
+        ...item, // Spread the transformed item properties
+        quantity: originalItem ? originalItem.quantity : 0, // Add quantity, default to 0 if not found
+      };
+    });
+
     const subTotal = checkoutSession.amount_subtotal / 100;
     const total = checkoutSession.amount_total / 100;
-    createDbOrder(userId, parsedItems, total, subTotal);
+    createDbOrder(userId, finalData, total, subTotal);
 
     //console.log(checkoutSession.)
   }

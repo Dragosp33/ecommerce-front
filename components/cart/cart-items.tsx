@@ -17,6 +17,7 @@ import Social from '../auth/social';
 import { FormSuccess } from '../form-success';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { Poppins } from 'next/font/google';
+
 const font = Poppins({
   subsets: ['latin'],
   weight: ['600'],
@@ -35,6 +36,10 @@ export const CartProducts = () => {
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   console.log('CART PRODUCTS RERENDER');
+  const k = products.map((product) => {
+    return { productId: product.productId, SKU: product.SKU };
+  });
+
   useEffect(() => {
     async function k() {
       if (params.get('success') === 'true' && params.get('session_id')) {
