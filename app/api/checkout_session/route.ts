@@ -57,8 +57,8 @@ export async function POST(req: NextRequest) {
     console.log('LINEITEMS::::::: ', lineItems);
     const k = items.map((item: any) => {
       return {
-        productId: k.productId,
-        SKU: k.SKU,
+        productId: item.productId,
+        SKU: item.SKU,
         quantity: item.quantity,
       };
     });
@@ -118,10 +118,10 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    console.log({ session: session.url });
+    //console.log({ session: session.url });
     //session.set({success})
     //session.success_url = `${session.success_url}&sess=${session.id}`;
-    console.log(session.success_url);
+    //console.log(session.success_url);
     // redirect(session.url);
     return new NextResponse(
       JSON.stringify({ url: session.url, id: session.id }),
