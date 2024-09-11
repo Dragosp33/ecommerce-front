@@ -48,9 +48,9 @@ export async function POST(req: NextRequest) {
     const origin = req.headers.get('origin');
     console.log({ req_body });
     // Create Checkout Sessions from body params.
-    const { items, customer } = req_body;
+    const { items } = req_body;
     // console.log(items, customer);
-    const lineItems = buildLineItems(items);
+    const lineItems = await buildLineItems(items);
     const k = items.map((item: any) => {
       return {
         productId: k.productId,

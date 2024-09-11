@@ -2,7 +2,7 @@
 
 import { CartProduct } from '@/lib/types';
 
-export function buildLineItems(items: CartProduct[]) {
+export async function buildLineItems(items: CartProduct[]) {
   return items.map((item: CartProduct) => ({
     price_data: {
       currency: 'usd', // Change to your currency
