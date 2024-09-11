@@ -14,19 +14,16 @@ import {
 import { ModeToggle } from './theme-toggle';
 import { usePathname } from 'next/navigation';
 import { UserButton } from './auth/user-button';
-import { ExitIcon, PlusIcon } from '@radix-ui/react-icons';
-import { LogoutButton } from './auth/logout-button';
 import { GoPlus } from 'react-icons/go';
 import { CartHoverCard, SmallCartDropdown } from './cart/cart-hover';
 //import { DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
-import CategoriesDropdown, { TestDropdown } from './categories-filter/dropdown';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import CategoryMenu from './categories-filter/dropdown';
-import { ServerCategories } from './categories-filter/server-categories';
+import { MdUserButton } from './auth/md-user-button';
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -78,13 +75,13 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
 
           <Link
             className={`transition-colors  hover:underline hover:text-foreground/80 underline-offset-4 ${
-              pathname === '/server'
+              pathname.includes('/shop')
                 ? 'text-foreground/100'
                 : 'text-foreground/60'
             }`}
-            href='/server'
+            href='/shop'
           >
-            Server
+            Shop
           </Link>
 
           <Link
@@ -143,13 +140,13 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                 <SheetClose asChild>
                   <Link
                     className={`transition-colors hover:underline hover:text-foreground/80 underline-offset-4 ${
-                      pathname === '/server'
+                      pathname.includes('/shop')
                         ? 'text-foreground/100'
                         : ' text-foreground/60'
                     }`}
-                    href='/server'
+                    href='/shop'
                   >
-                    Server
+                    Shop
                   </Link>
                 </SheetClose>
 
@@ -167,13 +164,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
                 </SheetClose>
                 <div className='flex flex-row w-full items-center justify-between'>
                   {' '}
-                  <LogoutButton>
-                    <div className='flex flex-row items-center '>
-                      {' '}
-                      <ExitIcon className='w-4 h-4 mr-2' />
-                      Log out{' '}
-                    </div>
-                  </LogoutButton>
+                  <MdUserButton />
                   <ModeToggle />
                 </div>
               </div>

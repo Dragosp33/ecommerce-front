@@ -1,6 +1,4 @@
-import { BuyButton } from '@/components/product/[id]/buttons';
 import BuyProductCard from '@/components/product/[id]/buy-product-card';
-import Gallery from '@/components/product/[id]/gallery';
 import MemoGallery from '@/components/product/[id]/memoGallery';
 import ProductDropdown from '@/components/product/[id]/properties-link';
 import {
@@ -12,18 +10,11 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import React from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { twJoin } from 'tailwind-merge';
+import { FaArrowRight } from 'react-icons/fa';
 
 import type { Metadata, ResolvingMetadata } from 'next';
 

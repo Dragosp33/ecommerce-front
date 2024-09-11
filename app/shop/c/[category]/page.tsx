@@ -1,5 +1,6 @@
 import Filters from '@/components/shop/category/filters';
 import { CategoryProducts } from '@/components/shop/category/Products';
+import { ProductsSkeleton } from '@/components/shop/category/products-grid-skeleton';
 import React, { Suspense } from 'react';
 
 async function page({
@@ -17,7 +18,7 @@ async function page({
   console.log('SERVER RENDER', searchParams);
   return (
     <>
-      <Suspense fallback={<p> Loading products...</p>}>
+      <Suspense fallback={<ProductsSkeleton />}>
         <CategoryProducts name={category} params={searchParams} />
       </Suspense>
     </>

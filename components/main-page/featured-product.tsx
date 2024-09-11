@@ -1,16 +1,10 @@
 import Image from 'next/image';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Badge } from '../ui/badge';
 import { RiSparkling2Fill } from 'react-icons/ri';
+import { BuyButton } from '../product/[id]/buttons';
 
 const FeaturedProduct = () => {
   return (
@@ -57,17 +51,29 @@ const FeaturedProduct = () => {
 };
 
 const FeatProduct = async () => {
-  let url =
-    `${process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL}/api/featured-product` ||
-    `http://admin.shop.localhost:3001/api/featured-product`;
-  const res = await fetch(url, {
-    method: 'GET',
-    next: { revalidate: 10 },
-  });
-  const product = await res.json();
+  let product;
+  try {
+    let url =
+      `${process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL}/api/featured-product` ||
+      `http://admin.shop.localhost:3001/api/featured-product`;
+    const res = await fetch(url, {
+      method: 'GET',
+      next: { revalidate: 10 },
+    });
+    product = await res.json();
+  } catch {
+    product = {};
+  }
+
   console.log(product.variants);
-  const variant = product.variants[0];
-  if (!product || !product.variants || variant.stock === 0) {
+
+  if (
+    !product ||
+    !product.variants ||
+    product.variants.length < 1 ||
+    !product.variants[0].stock ||
+    product.variants[0].stock === 0
+  ) {
     return (
       <div className='md:container mt-5 mb-5 md:mt-2 max-w-screen-2xl'>
         <div className='grid sm:grid-cols-[1.1fr_0.9fr]   min-h-[70vh] '>
@@ -81,15 +87,13 @@ const FeatProduct = async () => {
             >
               <RiSparkling2Fill className='mr-1' /> Featured
             </Badge>
-            <p className='mx-3'>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse hic
-              quisquam minima vitae cupiditate maiores sequi consequuntur
-              dolores sint animi voluptatum adipisci sunt, earum repellat, iste
-              eaque corporis quibusdam fugiat!
-            </p>
+            <p className='mx-3'>This item is out of stock...</p>
+            <p>Please keep an eye out.</p>
             <div className='flex gap-2.5 mt-6'>
               <Button variant={'outline'}>
-                <Link href={`/product/${11}`}>Read more</Link>
+                <Link href={`#`} aria-disabled>
+                  Read more
+                </Link>
               </Button>
 
               <Button disabled>
@@ -113,6 +117,7 @@ const FeatProduct = async () => {
       </div>
     );
   }
+  const variant = product.variants[0];
   return (
     <div className='md:container mt-5 mb-5 md:mt-2 max-w-screen-2xl'>
       <div className='grid sm:grid-cols-[1.1fr_0.9fr]   min-h-[70vh] '>
@@ -140,12 +145,8 @@ const FeatProduct = async () => {
           </p>
 
           <div className='flex gap-2.5 mt-6'>
-            <Button variant={'outline'}>
+            <Button variant={'outline'} size={'lg'}>
               <Link href={`/product/${product.id}`}>Read more</Link>
-            </Button>
-            <Button>
-              <FaShoppingCart />
-              Add to cart
             </Button>
           </div>
         </div>

@@ -96,6 +96,7 @@ export default function Home() {
 */
 
 export default function Home() {
+  //throw Error('errrrrr');
   return (
     <div className='w-full'>
       <FeatProduct />

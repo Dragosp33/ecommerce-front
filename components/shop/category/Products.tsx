@@ -1,10 +1,10 @@
 'use server';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { generateVariantUrl } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BuyButton } from '@/components/product/[id]/buttons';
+import { notFound } from 'next/navigation';
 
 interface Variant {
   productId: string;
@@ -73,37 +73,43 @@ export async function CategoryProducts({
   params: any;
 }) {
   console.log(params);
-  let url =
-    `${process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL}/api/products-cat/${name}?` ||
-    `http://admin.shop.localhost:3001/api/products-cat/${name}?`;
+  let products = [];
+  try {
+    let url =
+      `${process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL}/api/products-cat/${name}?` ||
+      `http://admin.shop.localhost:3001/api/products-cat/${name}?`;
 
-  const urlParams: string[] = [];
+    const urlParams: string[] = [];
 
-  // Collect the provided searchParams
-  for (const [key, value] of Object.entries(params || {})) {
-    console.log(key, value);
-    urlParams.push(`${key}=${value}`);
-  }
+    // Collect the provided searchParams
+    for (const [key, value] of Object.entries(params || {})) {
+      console.log(key, value);
+      urlParams.push(`${key}=${value}`);
+    }
 
-  console.log('URL IN PRODUCTS.TSXXXXXXXXXXXXXXXXXXXXXXX');
-  console.log(url);
-  const res = await fetch(url + urlParams.join('&'), {
-    method: 'GET',
-    next: { revalidate: 10 },
-  });
+    console.log('URL IN PRODUCTS.TSXXXXXXXXXXXXXXXXXXXXXXX');
+    console.log(url);
+    const res = await fetch(url + urlParams.join('&'), {
+      method: 'GET',
+      next: { revalidate: 10 },
+    });
 
-  const products = await res.json();
-  console.log('MATCHED: ', products.matchedVariants);
-  if (
-    !products ||
-    !products.matchedVariants ||
-    products.matchedVariants.length < 1
-  ) {
-    return (
-      <div>
-        <p> Sorry, we could not find any products </p>
-      </div>
-    );
+    products = await res.json();
+
+    console.log('MATCHED: ', products.matchedVariants);
+    if (
+      !products ||
+      !products.matchedVariants ||
+      products.matchedVariants.length < 1
+    ) {
+      return (
+        <div>
+          <p> Sorry, we could not find any products </p>
+        </div>
+      );
+    }
+  } catch {
+    notFound();
   }
   return (
     <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4'>
