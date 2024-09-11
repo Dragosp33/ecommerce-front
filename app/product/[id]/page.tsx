@@ -176,7 +176,7 @@ export default async function Product({
             >
               <Link
                 className='flex flex-row w-full justify-between w-full'
-                href={'/'}
+                href={`/shop/c/${categoryInfo.name}`}
               >
                 Category
                 <span> {categoryInfo.name} </span>
@@ -200,10 +200,10 @@ export default async function Product({
               >
                 <Link
                   className='flex flex-row w-full justify-between'
-                  href={'/'}
+                  href={`/shop/c/${categoryInfo.name}`}
                 >
                   Category
-                  <span> Laptops </span>
+                  <span> {categoryInfo.name} </span>
                 </Link>
               </Button>
             </div>
