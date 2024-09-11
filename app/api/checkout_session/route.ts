@@ -1,4 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import { buildLineItems } from '@/actions/util';
 import { getCustomerInfo } from '@/data/User';
 import { user } from '@/lib/auth';
 import { CartProduct } from '@/lib/types';
@@ -9,23 +10,23 @@ import { NextRequest, NextResponse } from 'next/server';
     amount: item.amount, // Amount in cents
     reference: item.id, // Unique reference for the item in the scope of the calculation
   };
-};*/
-function buildLineItems(items: CartProduct[]) {
-  return items.map((item: CartProduct) => ({
-    price_data: {
-      currency: 'usd', // Change to your currency
-      product_data: {
-        name: item.title, // Product name
-        images: [item.thumbnail], // Product image URL (optional)
-        metadata: { SKU: item.SKU },
-      },
+   function buildLineItems(items: CartProduct[]) {
+      return items.map((item: CartProduct) => ({
+        price_data: {
+          currency: 'usd', // Change to your currency
+          product_data: {
+            name: item.title, // Product name
+            images: [item.thumbnail], // Product image URL (optional)
+            metadata: { SKU: item.SKU },
+          },
 
-      unit_amount: Number(item.price) * 100, // Stripe expects amount in cents
-    },
-    //metadata: { SKU: item.SKU },
-    quantity: item.quantity,
-  }));
-}
+          unit_amount: Number(item.price) * 100, // Stripe expects amount in cents
+        },
+        //metadata: { SKU: item.SKU },
+        quantity: item.quantity,
+      }));
+    }
+};*/
 
 export async function POST(req: NextRequest) {
   try {
@@ -57,6 +58,7 @@ export async function POST(req: NextRequest) {
         quantity: item.quantity,
       };
     });
+    console.log('???????? K ITEMS', k);
     const session = await stripe.checkout.sessions.create({
       //customer: customer.id,
 
