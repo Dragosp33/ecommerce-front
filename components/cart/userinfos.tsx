@@ -24,7 +24,7 @@ export async function UserInfoCard() {
           <CardHeader>
             <CardTitle>No informations recorded...</CardTitle>
             <CardDescription>
-              Don't worry, it seems like your informations have not been
+              Don{`'t`} worry, it seems like your informations have not been
               registered, your address will be remembered after your first
               purchase.
             </CardDescription>
@@ -39,8 +39,8 @@ export async function UserInfoCard() {
         <CardHeader>
           <CardTitle>Customer info</CardTitle>
           <CardDescription>
-            Here you can see your saved shipping address. Don't worry if nothing
-            shows up, the address will be saved on your next purchase.
+            Here you can see your saved shipping address. Don{`'t`} worry if
+            nothing shows up, the address will be saved on your next purchase.
           </CardDescription>
         </CardHeader>
         <CardContent>
