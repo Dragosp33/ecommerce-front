@@ -47,10 +47,14 @@ export async function POST(req: NextRequest) {
     const req_body = await req.json();
     const origin = req.headers.get('origin');
     console.log({ req_body });
+    console.log('MERGE PANA AICI. ');
+    console.log(await req_body.items);
     // Create Checkout Sessions from body params.
-    const { items } = req_body;
+    const { items } = await req_body;
+    console.log('ITEMS :::::::::: ', items);
     // console.log(items, customer);
     const lineItems = await buildLineItems(items);
+    console.log('LINEITEMS::::::: ', lineItems);
     const k = items.map((item: any) => {
       return {
         productId: k.productId,
@@ -109,7 +113,7 @@ export async function POST(req: NextRequest) {
         ],
       },
       metadata: {
-        userId: currentUser.id,
+        userId: currentUser.id || '',
         products: JSON.stringify([...k]),
       },
     });

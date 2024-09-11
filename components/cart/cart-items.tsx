@@ -75,7 +75,7 @@ export const CartProducts = () => {
 
     const res = await response.json();
     if (res.error) {
-      console.log(res.error);
+      console.log('ERRRRRRRRRRPR', res.error);
     }
     const { id, url } = res;
 
