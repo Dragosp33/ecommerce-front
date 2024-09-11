@@ -100,7 +100,7 @@ export default function Home() {
     <div className='w-full'>
       <FeatProduct />
       <Suspense fallback={<Loading />}>
-        <Latest limit={5} showShop />
+        <Latest limit={5} showShop={true} />
       </Suspense>
       <Suspense fallback={<Loading />}>
         <Best limit={5} />

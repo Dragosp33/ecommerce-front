@@ -10,7 +10,7 @@ export default async function Page() {
   return (
     <div>
       <Suspense>
-        <Latest limit={10} showShop />
+        <Latest limit={10} showShop={false} />
       </Suspense>
       <Best limit={10} />
     </div>
