@@ -41,7 +41,7 @@ export default async function layout({
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href={'/'}>Shop</BreadcrumbLink>
+              <BreadcrumbLink href={'/shop'}>Shop</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
 
