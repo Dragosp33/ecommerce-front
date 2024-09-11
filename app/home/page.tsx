@@ -20,7 +20,7 @@ export default function HomePage() {
   return (
     <div className='sm:container  w-full'>
       <FeatProduct />;
-      <Latest />
+      <Latest showShop={true} />
       <div className='flex items-center justify-center h-screen relative max-w-screen overflow-hidden'>
         <div className='w-32 h-32 bg-indigo-500 animate-blob absolute z-10'></div>
         <PiWaveSine className='w-[400px] h-[200px] absolute animate-spin-slow' />
