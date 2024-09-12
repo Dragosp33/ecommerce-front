@@ -45,7 +45,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant={'secondary'}
-                  className='font-semibold text-sm md:text-md group'
+                  className='font-semibold text-sm md:text-md group pl-0 text-xs'
                 >
                   <span className='ml-1 text-xs md:text-sm inline-block group-data-[state=open]:hidden mr-2'>
                     {' '}
@@ -112,7 +112,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           <UserButton />
           <ModeToggle />
         </div>
-        <div className='flex flex-col items-end gap-2 md:hidden'>
+        <div className='flex flex-row items-baseline self-baseline gap-2 md:hidden'>
           <SmallCartDropdown />
           <Sheet>
             <SheetTrigger asChild>

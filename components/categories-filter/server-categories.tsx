@@ -61,17 +61,21 @@ const CategoryItem = ({ category }: { category: any }) => {
 };
 
 export async function ServerCategories() {
+  let categories = [];
   let url =
     `${process.env.NEXT_PUBLIC_ADMIN_DOMAIN_URL}/api/category-tree` ||
     `http://admin.shop.localhost:3001/api/category-tree`;
-  const res = await fetch(url, {
-    method: 'GET',
-    next: { revalidate: 10 },
-  });
-  const categories = await res.json();
-  console.log('USEEFFECT????????');
-  console.log(categories);
-
+  try {
+    const res = await fetch(url, {
+      method: 'GET',
+      next: { revalidate: 10 },
+    });
+    categories = await res.json();
+    console.log('USEEFFECT????????');
+    console.log(categories);
+  } catch {
+    categories = [];
+  }
   if (!categories || categories.length < 1) {
     return <div>sorry, no categories found yet..</div>;
   }

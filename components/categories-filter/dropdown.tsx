@@ -104,11 +104,15 @@ const CategoryMenu = () => {
         method: 'GET',
         next: { revalidate: 10 },
       });
-      const categories = await res.json();
-      console.log('USEEFFECT????????');
-      console.log(categories);
-      if (categories && categories.length > 0) {
-        setCategories(categories);
+      try {
+        const categories = await res.json();
+        console.log('USEEFFECT????????');
+        console.log(categories);
+        if (categories && categories.length > 0) {
+          setCategories(categories);
+        }
+      } catch {
+        setCategories([]);
       }
     }
 

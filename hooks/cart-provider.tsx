@@ -114,6 +114,7 @@ export function CartContextProvider({
   function removeWholeQuantity(SKU: string) {
     setCartProducts((prev) => {
       const updatedCart = prev.filter((product) => product.SKU !== SKU);
+      setCartProducts(updatedCart);
       if (ls) {
         ls.setItem('cart', JSON.stringify(updatedCart));
       }
