@@ -124,7 +124,7 @@ export function SmallCartDropdown() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className='mr-4'>
+      <DropdownMenuTrigger className='mr-2'>
         Cart{' '}
         {context?.totalProducts !== undefined &&
           context.totalProducts > 0 &&
