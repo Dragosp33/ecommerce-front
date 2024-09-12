@@ -1,4 +1,3 @@
-import Filters from '@/components/shop/category/filters';
 import { CategoryProducts } from '@/components/shop/category/Products';
 import { ProductsSkeleton } from '@/components/shop/category/products-grid-skeleton';
 import React, { Suspense } from 'react';

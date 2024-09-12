@@ -1,13 +1,6 @@
-import { ModeToggle } from '@/components/theme-toggle';
-
-import { lusitana } from '@/lib/fonts';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { Poppins } from 'next/font/google';
-import { LoginButton } from '@/components/auth/login-button';
-import FeaturedProduct from '@/components/main-page/featured-product';
+
 import FeatProduct from '@/components/main-page/featured-product';
-import { revalidatePath } from 'next/cache';
 import { Latest } from '@/components/main-page/latest-products.tsx/latest';
 import { PiWaveSine } from 'react-icons/pi';
 

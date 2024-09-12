@@ -58,7 +58,7 @@ export default async function RootLayout({
   const session = await auth();
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased h-auto`}>
         <SessionProvider session={session}>
           <CartContextProvider>
             <ThemeProvider

@@ -1,7 +1,7 @@
 'use server';
 
 import { VerifySession } from '@/components/auth/verify-session/main';
-import { user } from '@/lib/auth';
+
 import { Suspense } from 'react';
 
 const Page = async () => {

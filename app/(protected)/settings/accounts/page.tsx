@@ -2,8 +2,6 @@ import { AccountsSkeleton } from '@/components/accounts/accounts-skeleton';
 import AccountsTable from '@/components/accounts/table';
 import { Suspense } from 'react';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

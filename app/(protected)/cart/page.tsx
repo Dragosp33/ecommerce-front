@@ -1,9 +1,7 @@
 import { CartProducts } from '@/components/cart/cart-items';
 import { UserInfoCard } from '@/components/cart/userinfos';
 import { CartUserSkeleton } from '@/components/skeletons/cart-user-info';
-import { Button } from '@/components/ui/button';
 
-import { CartProduct } from '@/lib/types';
 import { Metadata } from 'next';
 
 import { Suspense } from 'react';
@@ -28,16 +26,6 @@ const Page = () => {
       </div>
     </div>
   );
-  /*return (
-    <form action='/api/checkout_sessions' method='POST'>
-      <section>
-        <Button type='submit' role='link' variant={'link'}>
-          Checkout
-        </Button>
-        <Button type='button' onClick={getItems}></Button>
-      </section>
-    </form>
-  );*/
 };
 
 export default Page;

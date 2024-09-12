@@ -29,21 +29,24 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <header className='sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-b-[#5542F6] dark:border-b-4'>
+    <header className='sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 '>
+      {
+        //dark:border-b-[#5542F6] dark:border-b-4
+      }
       <div className='container h-14 max-w-screen-2xl flex items-center justify-between px-4 py-2'>
-        <div className='flex flex-row items-center justify-center'>
+        <div className='flex flex-col md:flex-row items-center justify-center text-sm md:text-md'>
           <Link className='flex items-center gap-2' href='/'>
-            <MountainIcon className='h-6 w-6 font-bold' />
-            <span className='text-lg font-bold'>ShopShift</span>
+            <MountainIcon className='w-4 h-4 md:h-6 md:w-6 font-bold' />
+            <span className='text-sm md:text-lg font-bold'>ShopShift</span>
           </Link>
           <div className='ml-2'>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant={'secondary'}
-                  className='font-semibold text-md group'
+                  className='font-semibold text-sm md:text-md group'
                 >
-                  <span className='ml-1 text-sm inline-block group-data-[state=open]:hidden mr-2'>
+                  <span className='ml-1 text-xs md:text-sm inline-block group-data-[state=open]:hidden mr-2'>
                     {' '}
                     |{' '}
                   </span>
