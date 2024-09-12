@@ -16,6 +16,7 @@ import { usePathname } from 'next/navigation';
 import { UserButton } from './auth/user-button';
 import { GoPlus } from 'react-icons/go';
 import { CartHoverCard, SmallCartDropdown } from './cart/cart-hover';
+
 //import { DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 
 import {
@@ -34,12 +35,12 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         //dark:border-b-[#5542F6] dark:border-b-4
       }
       <div className='container h-20 md:h-14 max-w-screen-2xl flex items-center justify-between px-4 py-2 gap-4 md:gap-2'>
-        <div className='flex flex-col md:flex-row items-center justify-center text-sm md:text-md'>
-          <Link className='flex items-center gap-2' href='/'>
+        <div className='flex flex-col md:flex-row items-center justify-center text-sm md:text-md gap-2 md:gap-4'>
+          <Link className='flex items-center' href='/'>
             <MountainIcon className='w-4 h-4 md:h-6 md:w-6 font-bold' />
             <span className='text-sm md:text-lg font-bold'>ShopShift</span>
           </Link>
-          <div className='ml-2'>
+          <div className='md:ml-2 ml-0'>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button

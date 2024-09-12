@@ -20,8 +20,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { TiShoppingCart } from 'react-icons/ti';
 
 import { generateVariantUrl } from '@/lib/utils';
+import { Badge } from '../ui/badge';
 
 export function CartHoverCard() {
   const pathname = usePathname();
@@ -105,6 +107,14 @@ export function CartHoverCard() {
   );
 }
 
+export function CartBadge({ number }: { number: number }) {
+  return (
+    <Badge className='text-xs absolute top-0 -left-2 w-4 h-4 p-0 rounded-full flex items-center justify-center'>
+      <p> {number}</p>
+    </Badge>
+  );
+}
+
 export function SmallCartDropdown() {
   const pathname = usePathname();
   const context = useContext(CartContext);
@@ -114,7 +124,9 @@ export function SmallCartDropdown() {
   if (!context) {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger>Cart</DropdownMenuTrigger>
+        <DropdownMenuTrigger>
+          <TiShoppingCart className='w-6 h-6' />
+        </DropdownMenuTrigger>
         <DropdownMenuContent>
           <div>Cart is empty</div>
         </DropdownMenuContent>
@@ -125,10 +137,13 @@ export function SmallCartDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className='mr-2'>
-        Cart{' '}
-        {context?.totalProducts !== undefined &&
-          context.totalProducts > 0 &&
-          `(${context.totalProducts})`}{' '}
+        <div className='relative'>
+          <TiShoppingCart className=' w-6 h-6 relative' />
+          {context?.totalProducts !== undefined &&
+            context.totalProducts > 0 && (
+              <CartBadge number={context.totalProducts} />
+            )}{' '}
+        </div>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className='mt-2 shadow-2xl w-[99vw] md:hidden'>
