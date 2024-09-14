@@ -45,7 +45,7 @@ export async function UserInfoCard() {
         </CardHeader>
         <CardContent>
           <div>
-            {customer.shipping.address && (
+            {customer.shipping && customer.shipping.address && (
               <div>
                 <Label htmlFor='city'>City</Label>
                 <Input

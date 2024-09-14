@@ -15,23 +15,18 @@ export function CartContextProvider({
 }) {
   const ls = typeof window !== 'undefined' ? window.localStorage : null;
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
+  // 1. Initialize cartProducts from localStorage on first render
   useEffect(() => {
-    /*console.log(
-      'CART PORDUCTS: ',
-      cartProducts,
-      Object.keys(cartProducts).length
-    );
-    if (Object.keys(cartProducts).length > 0)*/
-    if (cartProducts.length > 0) {
-      ls?.setItem('cart', JSON.stringify(cartProducts));
+    if (ls) {
+      const storedCart = ls.getItem('cart');
+      if (storedCart) {
+        console.log('Initializing cartProducts from localStorage');
+        setCartProducts(JSON.parse(storedCart));
+      }
     }
-  }, [cartProducts, ls]);
-  useEffect(() => {
-    if (ls && ls.getItem('cart')) {
-      ls.getItem('cart');
-      setCartProducts(JSON.parse(ls.getItem('cart') || ''));
-    }
-  }, [ls]);
+  }, []); // Empty dependency array to run only once on mount
+
+  // 2. Sync localStorage whenever cartProducts changes
   /*function addProduct(productId: string) {
     setCartProducts((prev) => {
       const existingProduct = prev.find(
@@ -70,6 +65,7 @@ export function CartContextProvider({
   function clearCart() {
     setCartProducts([]);
   }*/
+  console.log('PRODUCTS :::::: IN CARTCOTNEXT PROVIDER', cartProducts);
   function addProduct(cartProduct: CartProduct) {
     console.log('Adding product:', cartProduct.SKU);
     setCartProducts((prev) => {
@@ -79,10 +75,17 @@ export function CartContextProvider({
 
       if (existingProductIndex !== -1) {
         const updatedProducts = [...prev];
+        console.log(
+          'OLD ITEM FOUND IN ADD PRODUCT',
+          updatedProducts[existingProductIndex]
+        );
         updatedProducts[existingProductIndex].quantity += 1;
+        ls?.setItem('cart', JSON.stringify(updatedProducts));
         return updatedProducts;
       } else {
-        return [...prev, cartProduct];
+        const newCart = [...prev, cartProduct];
+        ls?.setItem('cart', JSON.stringify(newCart));
+        return newCart;
       }
     });
   }
@@ -101,12 +104,16 @@ export function CartContextProvider({
         if (product.quantity > 1) {
           // If more than one item exists, decrement its quantity
           product.quantity -= 1;
+          ls?.setItem('cart', JSON.stringify(updatedProducts));
           return updatedProducts;
         } else {
           // If only one item exists, remove it from the cart
-          return updatedProducts.filter((p) => p.SKU !== SKU);
+          const k = updatedProducts.filter((p) => p.SKU !== SKU);
+          ls?.setItem('cart', JSON.stringify(k));
+          return k;
         }
       }
+      ls?.setItem('cart', JSON.stringify(prev));
       return prev;
     });
   }
@@ -114,11 +121,16 @@ export function CartContextProvider({
   function removeWholeQuantity(SKU: string) {
     setCartProducts((prev) => {
       const updatedCart = prev.filter((product) => product.SKU !== SKU);
-      setCartProducts(updatedCart);
+      console.log(updatedCart);
+
+      // Update localStorage only once, after setting the state
       if (ls) {
+        console.log('REMOVE FROM LS: ');
         ls.setItem('cart', JSON.stringify(updatedCart));
+        //console.log('cart remaining: ', ls.getItem('cart'));
       }
-      return updatedCart;
+
+      return updatedCart; // Return the updated cart state
     });
   }
 
