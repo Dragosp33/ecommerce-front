@@ -16,6 +16,12 @@ export async function CreateCustomer(
   await setCustomerId(userId, customer.id);
 }
 
+/**
+ * Function to get the customer information from stripe based on userId in mongoDB
+ * If the user is not linked to a customerId, a new Customer Account will be created.
+ * @param userId - userId to get the stripe information from
+ * @returns customer info from stripe - address, tax, etc.
+ */
 export async function getCustomer(userId: string) {
   const cusInfo = await getCustomerInfo(userId);
   if (!cusInfo) {
@@ -27,8 +33,7 @@ export async function getCustomer(userId: string) {
     return newCustomer;
   }
   const customer = await stripe.customers.retrieve(cusInfo.customerId);
-  console.log('CUSTOMER FROM STRIPE=============');
-  console.log(customer);
+
   return customer;
 }
 

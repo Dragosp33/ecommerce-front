@@ -192,8 +192,6 @@ export const {
       // here are checks for linking an account when an user is already logged in, inside the /settings page.
       const loggedIn = await auth();
 
-      console.log({ loggedIn });
-
       // if loggedIn is present it means a user is trying to link accounts.
       if (loggedIn) {
         console.log({ account, user, profile });
@@ -210,11 +208,11 @@ export const {
         }
         // if toLinkAccount is found, it means that this account has been linked / registered before.
         if (toLinkAccount) {
-          toLinkAccount.id;
-          console.log({ toLinkAccount });
+          //toLinkAccount.id;
+          //console.log({ toLinkAccount });
           const toLinkUser = await getUserById(toLinkAccount.userId);
           if (toLinkUser) {
-            console.log({ toLinkUser });
+            //console.log({ toLinkUser });
             if (toLinkUser.password) {
               return '/settings/accounts?error=credentialLink';
             }
@@ -234,7 +232,6 @@ export const {
               return '/settings/accounts?error=unknownError';
             }
             const deleted = await deleteUser(toLinkUser._id.toString());
-            console.log('deleted user: ', toLinkUser, deleted);
           }
         } else {
           // create account here linked to the user.
@@ -291,7 +288,7 @@ export const {
       return true;
     },
     async session({ token, session, user }) {
-      console.log({ token, session });
+      //console.log({ token, session });
       if (token.sub) {
         session.user.id = token.sub;
       }

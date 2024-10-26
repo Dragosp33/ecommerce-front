@@ -65,7 +65,7 @@ const FeatProduct = async () => {
     product = {};
   }
 
-  console.log(product.variants);
+  //console.log(product.variants);
 
   if (
     !product ||

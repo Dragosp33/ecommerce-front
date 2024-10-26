@@ -16,7 +16,7 @@ interface Variant {
 }
 
 function VariantCard({ variant }: { variant: Variant }) {
-  console.log('VARIANT CARDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', variant);
+  //console.log('VARIANT CARDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', variant);
   return (
     <Card
       // key={variant.productId}
@@ -87,8 +87,8 @@ export async function CategoryProducts({
       urlParams.push(`${key}=${value}`);
     }
 
-    console.log('URL IN PRODUCTS.TSXXXXXXXXXXXXXXXXXXXXXXX');
-    console.log(url);
+    //console.log('URL IN PRODUCTS.TSXXXXXXXXXXXXXXXXXXXXXXX');
+    //console.log(url);
     const res = await fetch(url + urlParams.join('&'), {
       method: 'GET',
       next: { revalidate: 10 },
@@ -96,7 +96,7 @@ export async function CategoryProducts({
 
     products = await res.json();
 
-    console.log('MATCHED: ', products.matchedVariants);
+    //console.log('MATCHED: ', products.matchedVariants);
     if (
       !products ||
       !products.matchedVariants ||
@@ -131,6 +131,6 @@ export async function CategoryByIdProducts({ id }: { id: string }) {
     next: { revalidate: 10 },
   });
   const products = await res.json();
-  console.log({ products });
+  //console.log({ products });
   return <div>hello</div>;
 }

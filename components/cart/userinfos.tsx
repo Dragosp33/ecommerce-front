@@ -16,7 +16,7 @@ export async function UserInfoCard() {
     return <div> not logged in. </div>;
   }
   const customer = await getCustomer(currentUser?.id);
-  console.log('USERINFOOOOOOOOOOOOOOO: ', customer);
+
   if (!customer || !customer.id) {
     return (
       <div>

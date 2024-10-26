@@ -23,7 +23,7 @@ export async function Latest({
     next: { revalidate: 10 },
   });
   const products = await res.json();
-  console.log({ products });
+  //console.log({ products });
   return (
     <div className='w-full bg-secondary text-secondary-foreground py-10'>
       <div className='max-w-screen-2xl md:container mx-2'>
@@ -31,32 +31,13 @@ export async function Latest({
           {' '}
           Latest Products{' '}
         </h1>
-        {/*<div className='flex flex-row space-x-16 max-w-[90vw]'>
-          {products.map((product: any) => (
-            <Card
-              key={product._id}
-              className='flex flex-col items-center justify-center'
-            >
-              <div className=' relative h-[200px] flex align-center justify-center min-w-[150px] mx-5'>
-                <Image
-                  //width={150}
-                  //height={150}
-                  fill
-                  src={product.variants[0].thumbnail}
-                  alt='....'
-                  className='object-contain max-h-[100px] self-center transition-transform duration-1000 hover:scale-125 '
-                />
-              </div>
-            </Card>
-          ))}
-        </div>
-        */}
+
         <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-3 grid-cols-2 gap-4'>
           {products.map((product: any) => (
-            <>
+            <div key={product._id.toString()}>
               <Link href={`/product/${product._id.toString()}`}>
                 <Card
-                  key={product._id}
+                  //key={product._id}
                   className='flex flex-col items-center justify-center'
                 >
                   <div className=' relative h-[200px] flex align-center justify-center min-w-[150px] mx-5'>
@@ -100,53 +81,7 @@ export async function Latest({
                   </div>
                 </Card>
               </Link>
-              {/*<Link href={`/product/${product._id.toString()}`}>
-                <Card
-                  key={product._id}
-                  className='flex flex-col items-center justify-center'
-                >
-                  <div className=' relative h-[200px] flex align-center justify-center min-w-[150px] mx-5'>
-                    <Image
-                      //width={150}
-                      //height={150}
-                      fill
-                      src={product.variants[0].thumbnail}
-                      alt='....'
-                      className='object-contain max-h-[100px] self-center transition-transform scale-125 duration-1000 hover:scale-150 '
-                    />
-                  </div>
-                  <div>
-                    <h1>{product.title}</h1>
-                  </div>
-                  <div className='flex flex-col w-full items-start mt-2 mb-2'>
-                    <div>
-                      <p className='text-sm font-light mb-2 ml-2'>
-                        {' '}
-                        starting at:{' '}
-                        <span className='text-emerald-500'>
-                          {' '}
-                          {product.variants.reduce(
-                            (min: any, variant: any) =>
-                              variant.price < min ? variant.price : min,
-                            product.variants[0].price
-                          )}{' '}
-                          $
-                        </span>
-                      </p>
-                    </div>
-
-                    <Button
-                      size={'sm'}
-                      variant={'outline'}
-                      className='w-full self-center px-5 w-[90%]'
-                    >
-                      {' '}
-                      See more{' '}
-                    </Button>
-                  </div>
-                </Card>
-              </Link>*/}
-            </>
+            </div>
           ))}
           {showShop && (
             <div className='w-full flex items-center justify-center mt-5 sm:mt-0'>

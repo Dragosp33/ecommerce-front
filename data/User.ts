@@ -30,19 +30,20 @@ export const setCustomerId = async (userId: string, customerId: string) => {
   }
 };
 
+/**
+ * Function to retrieve from the database the stripe customerId.
+ * @param userId - id of the user
+ * @returns userId and customerId
+ */
 export const getCustomerInfo = async (userId: string) => {
   try {
     const client = await clientPromise;
-    const db = client.db(); // Use your database name
-
-    //const user = await db.collection('users').findOne({ _id: userId });
+    const db = client.db();
 
     if (!userId) {
       return null;
     }
-    //const parsedUser = JSON.parse(JSON.stringify(replaceIdDoc(user)));
-    //console.log('USER FOUND IS: ', parsedUser);
-    //return user;
+
     const cusInfo = await db
       .collection('userinfos')
       .findOne({ userId: new mongoose.Types.ObjectId(userId) });
@@ -79,6 +80,11 @@ export const getUserByEmail = async (email: string) => {
   }
 };
 
+/**
+ * retrieve user from database based on id
+ * @param id - string - the id of the user
+ * @returns user data - id, email, role.
+ */
 export const getUserById = async (id?: string | null) => {
   if (!id) return null;
   try {

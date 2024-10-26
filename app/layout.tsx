@@ -16,7 +16,13 @@ export const metadata: Metadata = {
     template: '%s | Shift',
     default: 'Shop Shift',
   },
-  description: 'Shifting Shopping Experience',
+  description:
+    'Shifting Shopping Experience. Build your business as you please.',
+  openGraph: {
+    description: 'Shift your shopping experience with ShiftShop',
+    //images
+  },
+  //icons: [],
   metadataBase: new URL(
     process.env.NEXTAUTH_URL_INTERNAL || 'http://shop.localhost:3000'
   ),
@@ -31,12 +37,12 @@ export const metadata: Metadata = {
     'Shift Shopping',
     'Shift Shop',
     'Next.js',
-    'React',
-    'JavaScript',
-    'auth.js',
-    'mongodb',
-    'next-auth',
-
+    'ecommerce',
+    'business',
+    'online',
+    'e-commerce',
+    'Shift',
+    'Shop',
     'DPC',
     'Dashboard',
   ],
