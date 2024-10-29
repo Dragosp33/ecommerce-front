@@ -58,7 +58,8 @@ const FeatProduct = async () => {
       `http://admin.shop.localhost:3001/api/featured-product`;
     const res = await fetch(url, {
       method: 'GET',
-      next: { revalidate: 10 },
+      //cache: 'no-store',
+      next: { revalidate: 5 },
     });
     product = await res.json();
   } catch {
