@@ -32,6 +32,7 @@ export function FilterSheet({
   filters: Record<string, string[]>;
   handleChange: any;
 }) {
+  console.log('render filtersheet');
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -42,24 +43,6 @@ export function FilterSheet({
     return currentValues.includes(filterValue);
   };
 
-  /*const createQueryString = useCallback(
-    (name: string, value: string) => {
-      console.log('NAME, VALUE', name, value);
-      const params = new URLSearchParams(searchParams.toString());
-      if (params.get(name)) {
-        //params.set(name, value);
-          //console.log(params.get(name)?.match(value));
-          if (params.get(name)?.match(value)) {
-              params.set(name, params.get('name')?.replace(`;${value}`))
-          }
-            params.set(name, params.get(name)?.concat(`;${value}`) || '');
-      } else {
-        params.set(name, value);
-      }
-      router.push(pathname + '?' + params.toString()); // params.toString();
-    },
-    [searchParams]
-  );*/
   return (
     <Sheet>
       <SheetTrigger asChild>

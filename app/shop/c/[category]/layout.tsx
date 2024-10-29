@@ -8,7 +8,14 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
   BreadcrumbPage,
+  BreadcrumbEllipsis,
 } from '@/components/ui/breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import React from 'react';
 
 export default async function layout({
@@ -28,12 +35,15 @@ export default async function layout({
     next: { revalidate: 10 },
   });
   const filters = await res.json();
-  console.log('FILTERS:::: ', filters, filters.properties);
-  let breadCrumbs = [];
+  console.log('FILTERS:::: ', filters.properties);
+  let breadCrumbs: string[] = [];
   if (filters.path) {
     breadCrumbs = filters.path.replace(/^,|,$/g, '').split(',');
   }
-  // const
+  //breadCrumbs.push(category);
+  //breadCrumbs.push(category);
+  //breadCrumbs.push(category);
+  //breadCrumbs.push(category);
 
   return (
     <div className='w-full bg-secondary'>
@@ -45,19 +55,54 @@ export default async function layout({
             </BreadcrumbItem>
             <BreadcrumbSeparator />
 
-            {breadCrumbs.map((breadCrumb: string) => (
-              <React.Fragment key={breadCrumb}>
+            {breadCrumbs.length > 3 ? (
+              <>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/shop/c/${breadCrumb}`}>
-                    {breadCrumb}
+                  <BreadcrumbLink href={`/shop/c/${breadCrumbs[0]})}`}>
+                    {decodeURIComponent(breadCrumbs[0])}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
-              </React.Fragment>
-            ))}
+                <BreadcrumbItem>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className='flex items-center gap-1'>
+                      <BreadcrumbEllipsis className='h-4 w-4' />
+                      <span className='sr-only'>Toggle menu</span>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align='start'>
+                      <DropdownMenuItem>Documentation</DropdownMenuItem>
+                      <DropdownMenuItem>Themes</DropdownMenuItem>
+                      <DropdownMenuItem>GitHub</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink
+                    href={`/shop/c/${breadCrumbs[breadCrumbs.length - 1]}`}
+                  >
+                    {decodeURIComponent(breadCrumbs[breadCrumbs.length - 1])}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+              </>
+            ) : (
+              breadCrumbs.map((breadCrumb: string) => {
+                return (
+                  <React.Fragment key={breadCrumb}>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink href={`/shop/c/${breadCrumb}`}>
+                        {decodeURIComponent(breadCrumb)}
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                  </React.Fragment>
+                );
+              })
+            )}
 
             <BreadcrumbItem>
-              <BreadcrumbPage> {category}</BreadcrumbPage>
+              <BreadcrumbPage> {decodeURIComponent(category)}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

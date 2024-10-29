@@ -1,5 +1,4 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
@@ -12,6 +11,7 @@ interface CategoryFiltersProps {
 const Filters = React.memo(({ filters }: CategoryFiltersProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  console.log('REACT MEMO;;');
 
   // Helper function to check if a filter is selected
   const isFilterSelected = (filterKey: string, filterValue: string) => {
@@ -74,22 +74,6 @@ const Filters = React.memo(({ filters }: CategoryFiltersProps) => {
   return (
     <div>
       <FilterSheet filters={filters} handleChange={handleFilterChange} />
-      {/*Object.entries(filters).map(([key, values]) => (
-        <div key={key}>
-          <h4>{key}</h4>
-          {values.map((value) => (
-            <label key={value}>
-              <input
-                type='checkbox'
-                value={value}
-                checked={isFilterSelected(key, value)}
-                onChange={() => handleFilterChange(key, value)}
-              />{' '}
-              {value}
-            </label>
-          ))}
-        </div>
-      ))*/}
     </div>
   );
 });

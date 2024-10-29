@@ -1,7 +1,8 @@
+import FiltersTest from '@/components/shop/category/filters-test';
 import { CategoryByIdProducts } from '@/components/shop/category/Products';
 import React, { Suspense } from 'react';
 
-const page = ({
+/*const page = ({
   searchParams,
   params,
 }: {
@@ -13,6 +14,13 @@ const page = ({
     <Suspense fallback={<p> Fetching category products......</p>}>
       <CategoryByIdProducts id={category} />
     </Suspense>
+  );
+};*/
+const page = () => {
+  return (
+    <>
+      <FiltersTest filters={{ color: ['black', 'white'] }} />
+    </>
   );
 };
 

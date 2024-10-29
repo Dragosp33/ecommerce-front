@@ -11,7 +11,7 @@ const font = Poppins({
   weight: ['600'],
 });
 
-export default function Home() {
+export default async function Home() {
   //throw Error('errrrrr');
   return (
     <div className='w-full'>
